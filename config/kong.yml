@@ -1,0 +1,23 @@
+ _format_version: "3.0"
+ _transform: true
+
+ services:
+ - host: www.mockbin.org
+   name: example_service
+   port: 80
+   protocol: http
+   routes:
+   - name: example_route
+     paths:
+     - /mock
+     strip_path: true
+
+ - host: host.docker.internal
+   port: 4000
+   name: localhost_server
+   path: /echo
+   routes:
+    - name: localhost_route
+      paths:
+      - /echo_server
+      strip_path: true
