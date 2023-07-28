@@ -29,6 +29,7 @@ plugins:
     - https://mockbin.com
     - https://www.githubstatus.com
     - https://www.prothomalo.com
+    - http://localhost:4000
     methods:
     - GET
     - POST
