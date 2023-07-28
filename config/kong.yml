@@ -27,6 +27,8 @@ plugins:
   config:
     origins:
     - https://mockbin.com
+    - https://www.githubstatus.com
+    - https://www.prothomalo.com
     methods:
     - GET
     - POST
