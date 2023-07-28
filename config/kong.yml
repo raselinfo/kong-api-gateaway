@@ -1,3 +1,5 @@
+# Mode about cors => https://docs.konghq.com/hub/kong-inc/cors/3.2.x/how-to/basic-example/
+
 _format_version: "3.0"
 
 services:
@@ -10,7 +12,6 @@ services:
         paths:
         - /echo_server
         - /echo_server2
-  
   - name: remote_server
     host: host.docker.internal
     port: 4000
@@ -19,11 +20,13 @@ services:
      - name: localhost_remote_routee
        paths:
         - /remote_server
-        - /remote_server2
+        - /remote_server2 
+
 
 # plugins
 plugins:
 - name: cors
+  service: echo-server
   config:
     origins:
     - https://mockbin.com
@@ -45,3 +48,4 @@ plugins:
     - X-Auth-Token
     credentials: true
     max_age: 3600
+
