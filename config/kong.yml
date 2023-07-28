@@ -1,23 +1,44 @@
- _format_version: "3.0"
- _transform: true
+_format_version: "3.0"
 
- services:
- - host: www.mockbin.org
-   name: example_service
-   port: 80
-   protocol: http
-   routes:
-   - name: example_route
-     paths:
-     - /mock
-     strip_path: true
+services:
+  - name: echo-server
+    host: host.docker.internal
+    port: 4000
+    path: /echo
+    routes:
+      - name: localhost_echo_route
+        paths:
+        - /echo_server
+        - /echo_server2
+  
+  - name: remote_server
+    host: host.docker.internal
+    port: 4000
+    path: /remote
+    routes:
+     - name: localhost_remote_routee
+       paths:
+        - /remote_server
+        - /remote_server2
 
- - host: host.docker.internal
-   port: 4000
-   name: localhost_server
-   path: /echo
-   routes:
-    - name: localhost_route
-      paths:
-      - /echo_server
-      strip_path: true
+# plugins
+plugins:
+- name: cors
+  config:
+    origins:
+    - https://mockbin.com
+    methods:
+    - GET
+    - POST
+    headers:
+    - Accept
+    - Accept-Version
+    - Content-Length
+    - Content-MD5
+    - Content-Type
+    - Date
+    - X-Auth-Token
+    exposed_headers:
+    - X-Auth-Token
+    credentials: true
+    max_age: 3600
