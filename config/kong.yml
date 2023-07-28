@@ -1,6 +1,8 @@
-# Mode about cors => https://docs.konghq.com/hub/kong-inc/cors/3.2.x/how-to/basic-example/
+# For more about ratelimiting plugin : https://docs.konghq.com/hub/kong-inc/rate-limiting/how-to/basic-example/
 
 _format_version: "3.0"
+
+
 
 services:
   - name: echo-server
@@ -20,32 +22,18 @@ services:
      - name: localhost_remote_routee
        paths:
         - /remote_server
-        - /remote_server2 
+        - /remote_server2
 
 
-# plugins
 plugins:
-- name: cors
-  service: echo-server
+- name: rate-limiting
   config:
-    origins:
-    - https://mockbin.com
-    - https://www.githubstatus.com
-    - https://www.prothomalo.com
-    - http://localhost:4000
-    methods:
-    - GET
-    - POST
-    headers:
-    - Accept
-    - Accept-Version
-    - Content-Length
-    - Content-MD5
-    - Content-Type
-    - Date
-    - X-Auth-Token
-    exposed_headers:
-    - X-Auth-Token
-    credentials: true
-    max_age: 3600
+   # second: 1
+    hour: 10
+    policy: local
+    fault_tolerant: true
+    hide_client_headers: false
+    redis_ssl: false
+    redis_ssl_verify: false
+
 
