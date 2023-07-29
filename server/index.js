@@ -4,12 +4,13 @@ const cors=require("cors")
 const app=express()
 
 app.get("/echo",(req,res)=>{
-    console.log("echo")
+    res.setHeader('Cache-Control', 'max-age=300'); 
+
     res.status(200).json({name:"rasel",age:25,sub:["bangla","english"]})
 })
 
 app.get("/remote",(req,res)=>{
-    console.log("remote")
+    res.setHeader('Cache-Control', 'max-age=300'); 
 
     res.status(200).json({name:"this is remote server"})
 })
