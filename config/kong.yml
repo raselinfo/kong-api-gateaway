@@ -3,6 +3,8 @@
 # populer user aggent : https://github.com/Kong/kong/blob/master/kong/plugins/bot-detection/rules.lua
 
 _format_version: "3.0"
+_transform: true
+
 
 services:
   - name: echo-server
@@ -26,13 +28,39 @@ services:
 
 # plugins
 plugins:
-- name: bot-detection
+- name: proxy-cache
   config:
-    allow:
-    - "(C|c)hrome"
-    deny:
-    - "(C|c)url"
+    response_code:
+    - 200
+    request_method:
+    - GET
+    - HEAD
+    content_type:
+    - text/plain
+    - application/json
+    - application/json; charset=utf-8
+    - text/plain; charset=utf-8
+    cache_ttl: 300
+    strategy: memory
 
 
 
-
+# - name: proxy-cache
+#     config: 
+#       response_code
+#       - 200
+#       - 301
+#       - 404
+#       request_method:
+#       - GET
+#       - HEAD
+#       content_type:
+#       - text/plain
+#       - application/json
+#       - application/json; charset=utf-8
+#       - text/plain; charset=utf-8
+#       cache_ttl: 300
+#       strategy: memory
+#       cache_control: true
+#       memory:
+#         dictionary_name: kong_db_cache

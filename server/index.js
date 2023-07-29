@@ -4,11 +4,14 @@ const cors=require("cors")
 const app=express()
 
 app.get("/echo",(req,res)=>{
-    res.json({name:"rasel",age:25,sub:["bangla","english"]})
+    console.log("echo")
+    res.status(200).json({name:"rasel",age:25,sub:["bangla","english"]})
 })
 
 app.get("/remote",(req,res)=>{
-    res.json({name:"this is remote server"})
+    console.log("remote")
+
+    res.status(200).json({name:"this is remote server"})
 })
 
 app.listen(4000,()=>{
