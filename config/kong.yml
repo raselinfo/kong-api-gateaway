@@ -1,4 +1,4 @@
-# For more about ratelimiting plugin : https://docs.konghq.com/hub/kong-inc/proxy-cache/
+# For more about Basic Authorization plugin : https://docs.konghq.com/hub/kong-inc/basic-auth/3.0.x/
 
 _format_version: "2.1"
 
@@ -23,18 +23,25 @@ services:
         - /remote_server
         - /remote_server2
 
-# plugins
+
+# step 1:  Create consumer in Kong.
+consumers:
+  - username: rasel
+
+# step 2: create Basic Credentials
+basicauth_credentials:
+- consumer: rasel 
+  username: Aladdin
+  password: OpenSesame
+
+# step 3: Enable Basic Auth plugins
 plugins:
-- name: proxy-cache
+- name: basic-auth
   config:
-    response_code:
-    - 200
-    request_method:
-    - GET
-    - HEAD
-    content_type:
-    - text/plain
-    - application/json
-    cache_ttl: 300
-    strategy: memory
-    cache_control: false
+    hide_credentials: true
+
+
+#  The user name and password will be encoded with Base64 and passed in the Authorization header.
+
+# Request with curl 
+# curl -H "Authorization: Basic QWxhZGRpbjpPcGVuU2VzYW1l" http://localhost:8000/echo_server
