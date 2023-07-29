@@ -1,6 +1,4 @@
-# For more about ratelimiting plugin : https://docs.konghq.com/hub/kong-inc/bot-detection/how-to/basic-example/
-
-# populer user aggent : https://github.com/Kong/kong/blob/master/kong/plugins/bot-detection/rules.lua
+# For more about ratelimiting plugin : https://docs.konghq.com/hub/kong-inc/proxy-cache/
 
 _format_version: "3.0"
 _transform: true
@@ -38,10 +36,10 @@ plugins:
     content_type:
     - text/plain
     - application/json
-    - application/json; charset=utf-8
-    - text/plain; charset=utf-8
     cache_ttl: 300
     strategy: memory
+
+
 
 
 
