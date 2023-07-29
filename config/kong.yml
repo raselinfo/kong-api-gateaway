@@ -1,8 +1,6 @@
-# For more about ratelimiting plugin : https://docs.konghq.com/hub/kong-inc/rate-limiting/how-to/basic-example/
+# For more about ratelimiting plugin : https://docs.konghq.com/hub/kong-inc/ip-restriction/how-to/basic-example/
 
 _format_version: "3.0"
-
-
 
 services:
   - name: echo-server
@@ -24,16 +22,16 @@ services:
         - /remote_server
         - /remote_server2
 
-
+# plugins
 plugins:
-- name: rate-limiting
+- name: ip-restriction
   config:
-   # second: 1
-    hour: 10
-    policy: local
-    fault_tolerant: true
-    hide_client_headers: false
-    redis_ssl: false
-    redis_ssl_verify: false
+    allow:
+    - 143.1.0.0/24
+    deny:
+    - 103.156.176.91
+    status: 401
+    message: "your ip is not allowed😜"
+
 
 
