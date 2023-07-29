@@ -1,4 +1,6 @@
-# For more about ratelimiting plugin : https://docs.konghq.com/hub/kong-inc/ip-restriction/how-to/basic-example/
+# For more about ratelimiting plugin : https://docs.konghq.com/hub/kong-inc/bot-detection/how-to/basic-example/
+
+# populer user aggent : https://github.com/Kong/kong/blob/master/kong/plugins/bot-detection/rules.lua
 
 _format_version: "3.0"
 
@@ -24,14 +26,13 @@ services:
 
 # plugins
 plugins:
-- name: ip-restriction
+- name: bot-detection
   config:
     allow:
-    - 143.1.0.0/24
+    - "(C|c)hrome"
     deny:
-    - 103.156.176.91
-    status: 401
-    message: "your ip is not allowed😜"
+    - "(C|c)url"
+
 
 
 
