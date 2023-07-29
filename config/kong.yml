@@ -1,7 +1,6 @@
 # For more about ratelimiting plugin : https://docs.konghq.com/hub/kong-inc/proxy-cache/
 
-_format_version: "3.0"
-_transform: true
+_format_version: "2.1"
 
 
 services:
@@ -38,27 +37,4 @@ plugins:
     - application/json
     cache_ttl: 300
     strategy: memory
-
-
-
-
-
-# - name: proxy-cache
-#     config: 
-#       response_code
-#       - 200
-#       - 301
-#       - 404
-#       request_method:
-#       - GET
-#       - HEAD
-#       content_type:
-#       - text/plain
-#       - application/json
-#       - application/json; charset=utf-8
-#       - text/plain; charset=utf-8
-#       cache_ttl: 300
-#       strategy: memory
-#       cache_control: true
-#       memory:
-#         dictionary_name: kong_db_cache
+    cache_control: false
