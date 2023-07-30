@@ -1,6 +1,8 @@
-# For more about Request Termination : https://docs.konghq.com/hub/kong-inc/request-termination/
+# For more about Request Size Limiting : https://docs.konghq.com/hub/kong-inc/request-size-limiting/
 
-# This plugin terminates incoming requests with a specified status code and message. This can be used to temporarily stop traffic on a service or a route, or even block a consumer.
+# TBlock incoming requests where the body is greater than a specific size in megabytes.
+
+# For security reasons, we suggest enabling this plugin for any service you add to Kong Gateway to prevent a DOS (Denial of Service) attack.
 
 _format_version: "2.1"
 
@@ -83,10 +85,16 @@ plugins:
     # message: So long and thanks for all the fish!
     body: '{ "message": "So long and thanks for all the fish!",status: 403 }'
     content_type: application/json
-    trigger: "block" # it's make the request-termination disable by default. but when you pass p=1 it will enable the request-termination plugin and block the requestt 
+    trigger: "block" # it's make the request-termination disable by default. but when you pass bloack=true it will enable the request-termination plugin and block the request 
+  enabled: false
 
 
+# step 6: Enable request size limiting plugin
+- name: request-size-limiting
+  config:
+    # allowed_payload_size: 128 # 128 megabytes (128000000 bytes).
+    allowed_payload_size: 1
+    # size_unit: megabytes
+    size_unit: kilobytes
+    require_content_length: true
 
-
-
-# Curl=>  curl -H "apikey: rasel_api_key" http://localhost:8000/echo_server
