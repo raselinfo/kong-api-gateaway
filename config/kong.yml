@@ -1,4 +1,6 @@
-# For more about API Authorization plugin : https://docs.konghq.com/hub/kong-inc/key-auth/
+# For more about Request Termination : https://docs.konghq.com/hub/kong-inc/request-termination/
+
+# This plugin terminates incoming requests with a specified status code and message. This can be used to temporarily stop traffic on a service or a route, or even block a consumer.
 
 _format_version: "2.1"
 
@@ -13,6 +15,8 @@ services:
         paths:
         - /echo_server
         - /echo_server2
+
+
   - name: remote_server
     host: host.docker.internal
     port: 4000
@@ -22,6 +26,13 @@ services:
        paths:
         - /remote_server
         - /remote_server2
+
+
+
+
+
+
+
 
 
 # step 1:  Create consumer in Kong.
@@ -63,6 +74,19 @@ plugins:
     key_in_header: true
     # key_in_query: falses 
     run_on_preflight: true
+
+# step 5: Enable request termination plugin
+- name: request-termination
+  service: echo-server # now will not work for echo_server
+  config:
+    status_code: 403
+    # message: So long and thanks for all the fish!
+    body: '{ "message": "So long and thanks for all the fish!",status: 403 }'
+    content_type: application/json
+    trigger: "block" # it's make the request-termination disable by default. but when you pass p=1 it will enable the request-termination plugin and block the requestt 
+
+
+
 
 
 # Curl=>  curl -H "apikey: rasel_api_key" http://localhost:8000/echo_server
