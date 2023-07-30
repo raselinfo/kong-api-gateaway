@@ -28,20 +28,22 @@ services:
 consumers:
   - username: rasel
 
-# step 2: create Basic Credentials
-basicauth_credentials:
-- consumer: rasel 
-  username: Aladdin
-  password: OpenSesame
+# step 2: create key auth Credentials
+keyauth_credentials:
+- consumer: rasel
+  ttl: 5
+  tags:
+    - example_tag
+  key: rasel_api_key
 
-# step 3: Enable Basic Auth plugins
+
+# step 3: Enable Key Auth plugins
 plugins:
-- name: basic-auth
+- name: key-auth
   config:
-    hide_credentials: true
-
-
-#  The user name and password will be encoded with Base64 and passed in the Authorization header.
-
-# Request with curl 
-# curl -H "Authorization: Basic QWxhZGRpbjpPcGVuU2VzYW1l" http://localhost:8000/echo_server
+    key_names:
+    - apikey
+    key_in_body: true
+    key_in_header: true
+    # key_in_query: falses 
+    run_on_preflight: true
