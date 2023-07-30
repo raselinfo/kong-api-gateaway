@@ -28,6 +28,12 @@ services:
 consumers:
   - username: rasel
 
+# step: 2 Create ACLs for consumer
+acls:
+- consumer: rasel
+  group: group1
+
+
 # step 2: create key auth Credentials
 keyauth_credentials:
 - consumer: rasel
@@ -37,8 +43,18 @@ keyauth_credentials:
   key: rasel_api_key
 
 
-# step 3: Enable Key Auth plugins
+
 plugins:
+# step 3: Enable ACL plugin 
+- name: acl
+  config:
+    # deny:
+    # - group1
+    allow: 
+    - group1
+    hide_groups_header: true
+
+# step 4: Enable key auth plugin
 - name: key-auth
   config:
     key_names:
@@ -47,3 +63,6 @@ plugins:
     key_in_header: true
     # key_in_query: falses 
     run_on_preflight: true
+
+
+# Curl=>  curl -H "apikey: rasel_api_key" http://localhost:8000/echo_server
