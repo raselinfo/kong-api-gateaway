@@ -1,4 +1,4 @@
-# For more about Basic Authorization plugin : https://docs.konghq.com/hub/kong-inc/basic-auth/3.0.x/
+# For more about API Authorization plugin : https://docs.konghq.com/hub/kong-inc/key-auth/
 
 _format_version: "2.1"
 
