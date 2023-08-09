@@ -1,100 +1,27 @@
-# For more about Request Size Limiting : https://docs.konghq.com/hub/kong-inc/request-size-limiting/
-
-# TBlock incoming requests where the body is greater than a specific size in megabytes.
-
-# For security reasons, we suggest enabling this plugin for any service you add to Kong Gateway to prevent a DOS (Denial of Service) attack.
-
-_format_version: "2.1"
-
+_format_version: "3.0"
 
 services:
   - name: echo-server
-    host: host.docker.internal
-    port: 4000
+    host: host.docker.outer
+    # port: 4000
+    protocol: http
     path: /echo
     routes:
       - name: localhost_echo_route
         paths:
-        - /echo_server
-        - /echo_server2
+        - /echo
+        strip_path: true
 
-
-  - name: remote_server
-    host: host.docker.internal
-    port: 4000
-    path: /remote
-    routes:
-     - name: localhost_remote_routee
-       paths:
-        - /remote_server
-        - /remote_server2
-
-
-
-
-
-
-
-
-
-# step 1:  Create consumer in Kong.
-consumers:
-  - username: rasel
-
-# step: 2 Create ACLs for consumer
-acls:
-- consumer: rasel
-  group: group1
-
-
-# step 2: create key auth Credentials
-keyauth_credentials:
-- consumer: rasel
-  ttl: 5
-  tags:
-    - example_tag
-  key: rasel_api_key
-
-
+upstreams:
+- name: example_upstream
+  targets:
+    - target: 127.0.0.1:4000
+      weight: 100
+    - target: 127.0.0.1:4001
+      weight: 100
 
 plugins:
-# step 3: Enable ACL plugin 
-- name: acl
+- name: rate-limiting
   config:
-    # deny:
-    # - group1
-    allow: 
-    - group1
-    hide_groups_header: true
-
-# step 4: Enable key auth plugin
-- name: key-auth
-  config:
-    key_names:
-    - apikey
-    key_in_body: true
-    key_in_header: true
-    # key_in_query: falses 
-    run_on_preflight: true
-
-# step 5: Enable request termination plugin
-- name: request-termination
-  service: echo-server # now will not work for echo_server
-  config:
-    status_code: 403
-    # message: So long and thanks for all the fish!
-    body: '{ "message": "So long and thanks for all the fish!",status: 403 }'
-    content_type: application/json
-    trigger: "block" # it's make the request-termination disable by default. but when you pass bloack=true it will enable the request-termination plugin and block the request 
-  enabled: false
-
-
-# step 6: Enable request size limiting plugin
-- name: request-size-limiting
-  config:
-    # allowed_payload_size: 128 # 128 megabytes (128000000 bytes).
-    allowed_payload_size: 1
-    # size_unit: megabytes
-    size_unit: kilobytes
-    require_content_length: true
-
+    minute: 50
+    policy: local
