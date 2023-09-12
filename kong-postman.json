@@ -1,0 +1,3213 @@
+{
+    "info": {
+        "_postman_id": "ef4fd89b-3a28-496a-b8c8-b7f1b1931a37",
+        "name": "Kong",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "01 Service",
+            "item": [
+                {
+                    "name": "Service - Add",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n\t\"url\" : \"https://api.qrserver.com\",\n\t\"name\" : \"qr\",\n\t\"retries\" : 5,\n\t\"connect_timeout\" : 60000,\n\t\"write_timeout\" : 60000,\n\t\"read_timeout\" : 60000\n}"
+                        },
+                        "url": {
+                            "raw": "{{kong.host}}/services",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "services"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Service - List All",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{kong.host}}/services",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "services"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Service - Get Info",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{kong.host}}/services/{{service.name}}",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "services",
+                                "{{service.name}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Service - Get Info by Route",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{kong.host}}/routes/{{route.id}}/service",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "routes",
+                                "{{route.id}}",
+                                "service"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Service - Update",
+                    "request": {
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n\t\"url\" : \"http://gamma:9003/\",\n\t\"name\" : \"qr\",\n\t\"retries\" : 5,\n\t\"connect_timeout\" : 60000,\n\t\"write_timeout\" : 60000,\n\t\"read_timeout\" : 60000\n}"
+                        },
+                        "url": {
+                            "raw": "{{kong.host}}/services/{{service.name}}",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "services",
+                                "{{service.name}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Service - Update by Route",
+                    "request": {
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n\t\"url\" : \"http://gamma:9003/\",\n\t\"name\" : \"gamma\",\n\t\"retries\" : 5,\n\t\"connect_timeout\" : 60000,\n\t\"write_timeout\" : 60000,\n\t\"read_timeout\" : 60000\n}"
+                        },
+                        "url": {
+                            "raw": "{{kong.host}}/routes/{{route.id}}/service",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "routes",
+                                "{{route.id}}",
+                                "service"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Service - Create or Update",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "type": "text",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n\t\"url\" : \"http://gamma:9003/\",\n\t\"name\" : \"gamma\",\n\t\"retries\" : 5,\n\t\"connect_timeout\" : 60000,\n\t\"write_timeout\" : 60000,\n\t\"read_timeout\" : 60000\n}"
+                        },
+                        "url": {
+                            "raw": "{{kong.host}}/services/{{service.name}}",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "services",
+                                "{{service.name}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Service - Delete",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": ""
+                        },
+                        "url": {
+                            "raw": "{{kong.host}}/services/{{service.name}}",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "services",
+                                "{{service.name}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ],
+            "protocolProfileBehavior": {}
+        },
+        {
+            "name": "02 Route",
+            "item": [
+                {
+                    "name": "Route - Add by Service",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "type": "text",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"protocols\": [\n        \"http\",\n        \"https\"\n    ],\n    \"paths\": [\n        \"/api-management\"\n    ],\n    \"methods\": []\n}"
+                        },
+                        "url": {
+                            "raw": "{{kong.host}}/services/{{service.name}}/routes",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "services",
+                                "{{service.name}}",
+                                "routes"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Route - List All",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{kong.host}}/routes",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "routes"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Route - List by Service",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{kong.host}}/services/{{service.name}}/routes",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "services",
+                                "{{service.name}}",
+                                "routes"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Route - List by Route ID",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{kong.host}}/routes/{{route.id}}",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "routes",
+                                "{{route.id}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Route - Update",
+                    "request": {
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"protocols\": [\n        \"http\",\n        \"https\"\n    ],\n    \"paths\": [\n        \"/practical-java\"\n    ],\n    \"methods\": []\n}"
+                        },
+                        "url": {
+                            "raw": "{{kong.host}}/routes/{{route.id}}",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "routes",
+                                "{{route.id}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Route - Create or Update",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "type": "text",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"protocols\": [\n        \"http\",\n        \"https\"\n    ],\n    \"paths\": [\n        \"/practical-java\"\n    ],\n    \"methods\": [\n    \t\"GET\"\n    ]\n}"
+                        },
+                        "url": {
+                            "raw": "{{kong.host}}/routes/{{route.id}}",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "routes",
+                                "{{route.id}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Route - Delete",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": ""
+                        },
+                        "url": {
+                            "raw": "{{kong.host}}/routes/{{route.id}}",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "routes",
+                                "{{route.id}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ],
+            "protocolProfileBehavior": {}
+        },
+        {
+            "name": "03 Consumer",
+            "item": [
+                {
+                    "name": "Consumer - Add",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n\t\"username\" : \"helen\",\n\t\"custom_id\" : \"U025\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{kong.host}}/consumers",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "consumers"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Consumer - List All",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{kong.host}}/consumers",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "consumers"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Consumer - List by Username or ID",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{kong.host}}/consumers/{{consumer.username}}",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "consumers",
+                                "{{consumer.username}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Consumer - List by ID",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{kong.host}}/consumers/{{consumer.id}}",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "consumers",
+                                "{{consumer.id}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Consumer - Update by Username",
+                    "request": {
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n\t\"username\" : \"practical-java-consumer\",\n\t\"custom_id\" : \"\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{kong.host}}/consumers/{{consumer.username}}",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "consumers",
+                                "{{consumer.username}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Consumer - Update by ID",
+                    "request": {
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "type": "text",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n\t\"username\" : \"practical-java-consumer\",\n\t\"custom_id\" : \"\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{kong.host}}/consumers/{{consumer.id}}",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "consumers",
+                                "{{consumer.id}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Consumer - Create or Update by Username",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n\t\"username\" : \"practical-java-consumer\",\n\t\"custom_id\" : \"\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{kong.host}}/consumers/{{consumer.username}}",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "consumers",
+                                "{{consumer.username}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Consumer - Create or Update by ID",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "type": "text",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n\t\"username\" : \"practical-java-consumer\",\n\t\"custom_id\" : \"\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{kong.host}}/consumers/{{consumer.id}}",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "consumers",
+                                "{{consumer.id}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Consumer - Delete by Username",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "type": "text",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": ""
+                        },
+                        "url": {
+                            "raw": "{{kong.host}}/consumers/{{consumer.username}}",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "consumers",
+                                "{{consumer.username}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Consumer - Delete by ID",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "type": "text",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": ""
+                        },
+                        "url": {
+                            "raw": "{{kong.host}}/consumers/{{consumer.id}}",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "consumers",
+                                "{{consumer.id}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ],
+            "protocolProfileBehavior": {}
+        },
+        {
+            "name": "04 Plugin",
+            "item": [
+                {
+                    "name": "Authentication",
+                    "item": [
+                        {
+                            "name": "API Key",
+                            "item": [
+                                {
+                                    "name": "Plugin - Get Schema",
+                                    "request": {
+                                        "method": "GET",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "name": "Content-Type",
+                                                "type": "text",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "url": {
+                                            "raw": "{{kong.host}}/plugins/schema/key-auth",
+                                            "host": [
+                                                "{{kong.host}}"
+                                            ],
+                                            "path": [
+                                                "plugins",
+                                                "schema",
+                                                "key-auth"
+                                            ]
+                                        }
+                                    },
+                                    "response": []
+                                },
+                                {
+                                    "name": "Plugin - Enable API Key Auth",
+                                    "request": {
+                                        "method": "POST",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "name": "Content-Type",
+                                                "type": "text",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n    \"name\": \"key-auth\",\n    \"enabled\": true,\n\t\"consumer_id\" : null,\n\t\"service_id\" : null,\n\t\"route_id\" : null,\n    \"config\": {\n        \"key_names\": null,\n        \"key_in_body\": null,\n        \"hide_credentials\": null,\n        \"anonymous\": null,\n        \"run_on_preflight\": null\n    }\n}"
+                                        },
+                                        "url": {
+                                            "raw": "{{kong.host}}/plugins",
+                                            "host": [
+                                                "{{kong.host}}"
+                                            ],
+                                            "path": [
+                                                "plugins"
+                                            ]
+                                        }
+                                    },
+                                    "response": []
+                                },
+                                {
+                                    "name": "Plugin - Create API Key Credential",
+                                    "request": {
+                                        "method": "POST",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "name": "Content-Type",
+                                                "type": "text",
+                                                "value": "application/x-www-form-urlencoded"
+                                            }
+                                        ],
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": ""
+                                        },
+                                        "url": {
+                                            "raw": "{{kong.host}}/consumers/{{consumer.username}}/key-auth",
+                                            "host": [
+                                                "{{kong.host}}"
+                                            ],
+                                            "path": [
+                                                "consumers",
+                                                "{{consumer.username}}",
+                                                "key-auth"
+                                            ]
+                                        }
+                                    },
+                                    "response": []
+                                },
+                                {
+                                    "name": "Plugin - List API Key Credentials by Username",
+                                    "request": {
+                                        "method": "GET",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "name": "Content-Type",
+                                                "type": "text",
+                                                "value": "application/x-www-form-urlencoded"
+                                            }
+                                        ],
+                                        "url": {
+                                            "raw": "{{kong.host}}/consumers/{{consumer.username}}/key-auth",
+                                            "host": [
+                                                "{{kong.host}}"
+                                            ],
+                                            "path": [
+                                                "consumers",
+                                                "{{consumer.username}}",
+                                                "key-auth"
+                                            ]
+                                        }
+                                    },
+                                    "response": []
+                                },
+                                {
+                                    "name": "Plugin - Delete API Key Credentials",
+                                    "request": {
+                                        "method": "DELETE",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "name": "Content-Type",
+                                                "type": "text",
+                                                "value": "application/x-www-form-urlencoded"
+                                            }
+                                        ],
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n\t\n}"
+                                        },
+                                        "url": {
+                                            "raw": "{{kong.host}}/consumers/{{consumer.username}}/key-auth/{{plugin.consumer.api-key.id}}",
+                                            "host": [
+                                                "{{kong.host}}"
+                                            ],
+                                            "path": [
+                                                "consumers",
+                                                "{{consumer.username}}",
+                                                "key-auth",
+                                                "{{plugin.consumer.api-key.id}}"
+                                            ]
+                                        }
+                                    },
+                                    "response": []
+                                }
+                            ],
+                            "protocolProfileBehavior": {},
+                            "_postman_isSubFolder": true
+                        },
+                        {
+                            "name": "Basic",
+                            "item": [
+                                {
+                                    "name": "Plugin - Get Schema",
+                                    "request": {
+                                        "method": "GET",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "name": "Content-Type",
+                                                "type": "text",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "url": {
+                                            "raw": "{{kong.host}}/plugins/schema/basic-auth",
+                                            "host": [
+                                                "{{kong.host}}"
+                                            ],
+                                            "path": [
+                                                "plugins",
+                                                "schema",
+                                                "basic-auth"
+                                            ]
+                                        }
+                                    },
+                                    "response": []
+                                },
+                                {
+                                    "name": "Plugin - Enable Basic Authentication",
+                                    "request": {
+                                        "method": "POST",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "name": "Content-Type",
+                                                "type": "text",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n\t\"name\" : \"basic-auth\",\n\t\"enabled\" : true,\n\t\"consumer_id\" : null,\n\t\"service_id\" : null,\n\t\"route_id\" : null,\n\t\"config\" : {\n\t\t\"hide_credentials\" : false,\n\t\t\"anonymous\": null\n\t}\n}"
+                                        },
+                                        "url": {
+                                            "raw": "{{kong.host}}/plugins",
+                                            "host": [
+                                                "{{kong.host}}"
+                                            ],
+                                            "path": [
+                                                "plugins"
+                                            ]
+                                        }
+                                    },
+                                    "response": []
+                                },
+                                {
+                                    "name": "Plugin - Create Basic Auth Credential by Username",
+                                    "request": {
+                                        "method": "POST",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "name": "Content-Type",
+                                                "type": "text",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n\t\"username\" : \"username-for-basic-auth\",\n\t\"password\" : \"unencrypted-password-for-basic-auth\"\n}"
+                                        },
+                                        "url": {
+                                            "raw": "{{kong.host}}/consumers/{{consumer.username}}/basic-auth",
+                                            "host": [
+                                                "{{kong.host}}"
+                                            ],
+                                            "path": [
+                                                "consumers",
+                                                "{{consumer.username}}",
+                                                "basic-auth"
+                                            ]
+                                        },
+                                        "description": "Create basic authentication credential for specific consumer"
+                                    },
+                                    "response": []
+                                },
+                                {
+                                    "name": "Plugin - Get Basic Auth User List",
+                                    "request": {
+                                        "method": "GET",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "name": "Content-Type",
+                                                "type": "text",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "url": {
+                                            "raw": "{{kong.host}}/basic-auths?size=50&offset=0",
+                                            "host": [
+                                                "{{kong.host}}"
+                                            ],
+                                            "path": [
+                                                "basic-auths"
+                                            ],
+                                            "query": [
+                                                {
+                                                    "key": "size",
+                                                    "value": "50"
+                                                },
+                                                {
+                                                    "key": "offset",
+                                                    "value": "0"
+                                                }
+                                            ]
+                                        },
+                                        "description": "Create basic authentication credential for specific consumer"
+                                    },
+                                    "response": []
+                                },
+                                {
+                                    "name": "Plugin - Get Consumer based on Credential Username",
+                                    "request": {
+                                        "method": "GET",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "name": "Content-Type",
+                                                "type": "text",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "url": {
+                                            "raw": "{{kong.host}}/basic-auths/{{plugin.basic-auth.username}}/consumer",
+                                            "host": [
+                                                "{{kong.host}}"
+                                            ],
+                                            "path": [
+                                                "basic-auths",
+                                                "{{plugin.basic-auth.username}}",
+                                                "consumer"
+                                            ]
+                                        },
+                                        "description": "Retrieve a Consumer associated with a basic-auth Credential.\nUse basic-auth username or id as parameter"
+                                    },
+                                    "response": []
+                                }
+                            ],
+                            "protocolProfileBehavior": {},
+                            "_postman_isSubFolder": true
+                        },
+                        {
+                            "name": "JWT",
+                            "item": [
+                                {
+                                    "name": "Plugin - Get Schema",
+                                    "request": {
+                                        "method": "GET",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "name": "Content-Type",
+                                                "type": "text",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "url": {
+                                            "raw": "{{kong.host}}/plugins/schema/jwt",
+                                            "host": [
+                                                "{{kong.host}}"
+                                            ],
+                                            "path": [
+                                                "plugins",
+                                                "schema",
+                                                "jwt"
+                                            ]
+                                        }
+                                    },
+                                    "response": []
+                                },
+                                {
+                                    "name": "Plugin - Enable JWT Auth",
+                                    "request": {
+                                        "method": "POST",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "name": "Content-Type",
+                                                "type": "text",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n    \"name\": \"jwt\",\n    \"enabled\": true,\n    \"consumer_id\" : null,\n\t\"service_id\" : null,\n\t\"route_id\" : null,\n\t\"config\": {\n        \"uri_param_names\": null,\n        \"cookie_names\": null,\n        \"claims_to_verify\": null,\n        \"key_claim_name\": null,\n        \"secret_is_base64\": null,\n        \"anonymous\": null,\n        \"run_on_preflight\": null\n    }\n}"
+                                        },
+                                        "url": {
+                                            "raw": "{{kong.host}}/plugins",
+                                            "host": [
+                                                "{{kong.host}}"
+                                            ],
+                                            "path": [
+                                                "plugins"
+                                            ]
+                                        }
+                                    },
+                                    "response": []
+                                },
+                                {
+                                    "name": "Plugin - Create JWT Credential",
+                                    "request": {
+                                        "method": "POST",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "name": "Content-Type",
+                                                "value": "application/x-www-form-urlencoded",
+                                                "type": "text"
+                                            }
+                                        ],
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": ""
+                                        },
+                                        "url": {
+                                            "raw": "{{kong.host}}/consumers/{{consumer.username}}/jwt",
+                                            "host": [
+                                                "{{kong.host}}"
+                                            ],
+                                            "path": [
+                                                "consumers",
+                                                "{{consumer.username}}",
+                                                "jwt"
+                                            ]
+                                        }
+                                    },
+                                    "response": []
+                                },
+                                {
+                                    "name": "Plugin - List JWT Credentials by Username",
+                                    "request": {
+                                        "method": "GET",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "name": "Content-Type",
+                                                "type": "text",
+                                                "value": "application/x-www-form-urlencoded"
+                                            }
+                                        ],
+                                        "url": {
+                                            "raw": "{{kong.host}}/consumers/{{consumer.username}}/jwt",
+                                            "host": [
+                                                "{{kong.host}}"
+                                            ],
+                                            "path": [
+                                                "consumers",
+                                                "{{consumer.username}}",
+                                                "jwt"
+                                            ]
+                                        }
+                                    },
+                                    "response": []
+                                },
+                                {
+                                    "name": "Plugin - Delete JWT Credentials",
+                                    "request": {
+                                        "method": "DELETE",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "name": "Content-Type",
+                                                "type": "text",
+                                                "value": "application/x-www-form-urlencoded"
+                                            }
+                                        ],
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n\t\n}"
+                                        },
+                                        "url": {
+                                            "raw": "{{kong.host}}/consumers/{{consumer.username}}/jwt/{{plugin.consumer.jwt.id}}",
+                                            "host": [
+                                                "{{kong.host}}"
+                                            ],
+                                            "path": [
+                                                "consumers",
+                                                "{{consumer.username}}",
+                                                "jwt",
+                                                "{{plugin.consumer.jwt.id}}"
+                                            ]
+                                        }
+                                    },
+                                    "response": []
+                                }
+                            ],
+                            "protocolProfileBehavior": {},
+                            "_postman_isSubFolder": true
+                        },
+                        {
+                            "name": "HMAC",
+                            "item": [
+                                {
+                                    "name": "Plugin - Get Schema",
+                                    "request": {
+                                        "method": "GET",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "name": "Content-Type",
+                                                "type": "text",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "url": {
+                                            "raw": "{{kong.host}}/plugins/schema/hmac-auth",
+                                            "host": [
+                                                "{{kong.host}}"
+                                            ],
+                                            "path": [
+                                                "plugins",
+                                                "schema",
+                                                "hmac-auth"
+                                            ]
+                                        }
+                                    },
+                                    "response": []
+                                },
+                                {
+                                    "name": "Plugin - Enable HMAC Auth",
+                                    "request": {
+                                        "method": "POST",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "name": "Content-Type",
+                                                "type": "text",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n\t\"name\" : \"hmac-auth\",\n\t\"enabled\" : true,\n\t\"consumer_id\" : null,\n\t\"service_id\" : null,\n\t\"route_id\" : null,\n\t\"config\" : {\n\t\t\"hide_credentials\" : false,\n\t\t\"clock_skew\" : 300,\n\t\t\"validate_request_body\" : false,\n\t\t\"algorithms\" : \"hmac-sha256\",\n\t\t\"enforce_headers\" : null\n\t}\n}"
+                                        },
+                                        "url": {
+                                            "raw": "{{kong.host}}/plugins",
+                                            "host": [
+                                                "{{kong.host}}"
+                                            ],
+                                            "path": [
+                                                "plugins"
+                                            ]
+                                        }
+                                    },
+                                    "response": []
+                                },
+                                {
+                                    "name": "Plugin - Create HMAC Credential by Username",
+                                    "request": {
+                                        "method": "POST",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "name": "Content-Type",
+                                                "type": "text",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n\t\"username\" : \"timpamungkas\",\n\t\"secret\" : \"secret\"\n}"
+                                        },
+                                        "url": {
+                                            "raw": "{{kong.host}}/consumers/{{consumer.username}}/hmac-auth",
+                                            "host": [
+                                                "{{kong.host}}"
+                                            ],
+                                            "path": [
+                                                "consumers",
+                                                "{{consumer.username}}",
+                                                "hmac-auth"
+                                            ]
+                                        },
+                                        "description": "Create basic authentication credential for specific consumer"
+                                    },
+                                    "response": []
+                                },
+                                {
+                                    "name": "Plugin - Get HMAC User List",
+                                    "request": {
+                                        "method": "GET",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "name": "Content-Type",
+                                                "type": "text",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "url": {
+                                            "raw": "{{kong.host}}/hmac-auths?size=50&offset=0",
+                                            "host": [
+                                                "{{kong.host}}"
+                                            ],
+                                            "path": [
+                                                "hmac-auths"
+                                            ],
+                                            "query": [
+                                                {
+                                                    "key": "size",
+                                                    "value": "50"
+                                                },
+                                                {
+                                                    "key": "offset",
+                                                    "value": "0"
+                                                }
+                                            ]
+                                        },
+                                        "description": "Create basic authentication credential for specific consumer"
+                                    },
+                                    "response": []
+                                },
+                                {
+                                    "name": "Plugin - Get Consumer based on Credential Username Copy",
+                                    "request": {
+                                        "method": "GET",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "name": "Content-Type",
+                                                "type": "text",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "url": {
+                                            "raw": "{{kong.host}}/hmac-auths/{{plugin.hmac-auth.username}}/consumer",
+                                            "host": [
+                                                "{{kong.host}}"
+                                            ],
+                                            "path": [
+                                                "hmac-auths",
+                                                "{{plugin.hmac-auth.username}}",
+                                                "consumer"
+                                            ]
+                                        },
+                                        "description": "Retrieve a Consumer associated with a basic-auth Credential.\nUse basic-auth username or id as parameter"
+                                    },
+                                    "response": []
+                                }
+                            ],
+                            "protocolProfileBehavior": {},
+                            "_postman_isSubFolder": true
+                        }
+                    ],
+                    "protocolProfileBehavior": {},
+                    "_postman_isSubFolder": true
+                },
+                {
+                    "name": "Security",
+                    "item": [
+                        {
+                            "name": "Bot Detection",
+                            "item": [
+                                {
+                                    "name": "Plugin - Get Schema",
+                                    "request": {
+                                        "method": "GET",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "name": "Content-Type",
+                                                "type": "text",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "url": {
+                                            "raw": "{{kong.host}}/plugins/schema/bot-detection",
+                                            "host": [
+                                                "{{kong.host}}"
+                                            ],
+                                            "path": [
+                                                "plugins",
+                                                "schema",
+                                                "bot-detection"
+                                            ]
+                                        }
+                                    },
+                                    "response": []
+                                },
+                                {
+                                    "name": "Plugin - Enable Bot Detection",
+                                    "request": {
+                                        "method": "POST",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "name": "Content-Type",
+                                                "type": "text",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n\t\"name\" : \"bot-detection\",\n\t\"enabled\" : true,\n\t\"consumer_id\" : null,\n\t\"service_id\" : null,\n\t\"route_id\" : null,\n\t\"config\" : {\n\t\t\"whitelist\" : [],\t\t\n\t\t\"blacklist\" : []\t\n\t}\n}"
+                                        },
+                                        "url": {
+                                            "raw": "{{kong.host}}/plugins",
+                                            "host": [
+                                                "{{kong.host}}"
+                                            ],
+                                            "path": [
+                                                "plugins"
+                                            ]
+                                        }
+                                    },
+                                    "response": []
+                                }
+                            ],
+                            "protocolProfileBehavior": {},
+                            "_postman_isSubFolder": true
+                        },
+                        {
+                            "name": "CORS",
+                            "item": [
+                                {
+                                    "name": "Plugin - Get Schema",
+                                    "request": {
+                                        "method": "GET",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "name": "Content-Type",
+                                                "type": "text",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "url": {
+                                            "raw": "{{kong.host}}/plugins/schema/cors",
+                                            "host": [
+                                                "{{kong.host}}"
+                                            ],
+                                            "path": [
+                                                "plugins",
+                                                "schema",
+                                                "cors"
+                                            ]
+                                        }
+                                    },
+                                    "response": []
+                                },
+                                {
+                                    "name": "Plugin - Enable CORS",
+                                    "request": {
+                                        "method": "POST",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "name": "Content-Type",
+                                                "type": "text",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n\t\"name\" : \"cors\",\n\t\"enabled\" : true,\n\t\"consumer_id\" : null,\n\t\"service_id\" : null,\n\t\"route_id\" : null,\n\t\"config\" : {\n\t\t\"methods\" : [],\t\n\t\t\"headers\" : null,\n\t\t\"exposed_headers\" : null,\n\t\t\"credentials\" : null,\n\t\t\"max_age\" : null,\n\t\t\"preflight_continue\" : null\n\t}\n}"
+                                        },
+                                        "url": {
+                                            "raw": "{{kong.host}}/plugins",
+                                            "host": [
+                                                "{{kong.host}}"
+                                            ],
+                                            "path": [
+                                                "plugins"
+                                            ]
+                                        }
+                                    },
+                                    "response": []
+                                }
+                            ],
+                            "protocolProfileBehavior": {},
+                            "_postman_isSubFolder": true
+                        },
+                        {
+                            "name": "IP Restriction",
+                            "item": [
+                                {
+                                    "name": "Plugin - Get Schema",
+                                    "request": {
+                                        "method": "GET",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "name": "Content-Type",
+                                                "type": "text",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "url": {
+                                            "raw": "{{kong.host}}/plugins/schema/cors",
+                                            "host": [
+                                                "{{kong.host}}"
+                                            ],
+                                            "path": [
+                                                "plugins",
+                                                "schema",
+                                                "cors"
+                                            ]
+                                        }
+                                    },
+                                    "response": []
+                                },
+                                {
+                                    "name": "Plugin - Enable CORS",
+                                    "request": {
+                                        "method": "POST",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "name": "Content-Type",
+                                                "type": "text",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n\t\"name\" : \"cors\",\n\t\"enabled\" : true,\n\t\"consumer_id\" : null,\n\t\"service_id\" : null,\n\t\"route_id\" : null,\n\t\"config\" : {\n\t\t\"whitelist\" : [],\n\t\t\"blacklist\" : []\n\t}\n}"
+                                        },
+                                        "url": {
+                                            "raw": "{{kong.host}}/plugins",
+                                            "host": [
+                                                "{{kong.host}}"
+                                            ],
+                                            "path": [
+                                                "plugins"
+                                            ]
+                                        }
+                                    },
+                                    "response": []
+                                }
+                            ],
+                            "protocolProfileBehavior": {},
+                            "_postman_isSubFolder": true
+                        }
+                    ],
+                    "protocolProfileBehavior": {},
+                    "_postman_isSubFolder": true
+                },
+                {
+                    "name": "Traffic Control",
+                    "item": [
+                        {
+                            "name": "Access Control List (ACL)",
+                            "item": [
+                                {
+                                    "name": "Plugin - Get Schema",
+                                    "request": {
+                                        "method": "GET",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "name": "Content-Type",
+                                                "type": "text",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "url": {
+                                            "raw": "{{kong.host}}/plugins/schema/acl",
+                                            "host": [
+                                                "{{kong.host}}"
+                                            ],
+                                            "path": [
+                                                "plugins",
+                                                "schema",
+                                                "acl"
+                                            ]
+                                        }
+                                    },
+                                    "response": []
+                                },
+                                {
+                                    "name": "Plugin - Enable ACL",
+                                    "request": {
+                                        "method": "POST",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "name": "Content-Type",
+                                                "type": "text",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n\t\"name\" : \"acl\",\n\t\"enabled\" : true,\n\t\"consumer_id\" : null,\n\t\"service_id\" : null,\n\t\"route_id\" : null,\n\t\"config\" : {\n\t\t\"whitelist\" : [],\n\t\t\"blacklist\" : []\n\t}\n}"
+                                        },
+                                        "url": {
+                                            "raw": "{{kong.host}}/plugins",
+                                            "host": [
+                                                "{{kong.host}}"
+                                            ],
+                                            "path": [
+                                                "plugins"
+                                            ]
+                                        }
+                                    },
+                                    "response": []
+                                },
+                                {
+                                    "name": "Plugin - Create ACL Credential by Username",
+                                    "request": {
+                                        "method": "POST",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "name": "Content-Type",
+                                                "type": "text",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n\t\"group\" : \"group-01\"\n}"
+                                        },
+                                        "url": {
+                                            "raw": "{{kong.host}}/consumers/{{consumer.username}}/acls",
+                                            "host": [
+                                                "{{kong.host}}"
+                                            ],
+                                            "path": [
+                                                "consumers",
+                                                "{{consumer.username}}",
+                                                "acls"
+                                            ]
+                                        },
+                                        "description": "Create basic authentication credential for specific consumer"
+                                    },
+                                    "response": []
+                                },
+                                {
+                                    "name": "Plugin - Get All ACL Credentials",
+                                    "protocolProfileBehavior": {
+                                        "disableBodyPruning": true
+                                    },
+                                    "request": {
+                                        "method": "GET",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "name": "Content-Type",
+                                                "type": "text",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n\t\"group\" : \"group-01\"\n}"
+                                        },
+                                        "url": {
+                                            "raw": "{{kong.host}}/acls?size=50&offset=0",
+                                            "host": [
+                                                "{{kong.host}}"
+                                            ],
+                                            "path": [
+                                                "acls"
+                                            ],
+                                            "query": [
+                                                {
+                                                    "key": "size",
+                                                    "value": "50"
+                                                },
+                                                {
+                                                    "key": "offset",
+                                                    "value": "0"
+                                                }
+                                            ]
+                                        },
+                                        "description": "Create basic authentication credential for specific consumer"
+                                    },
+                                    "response": []
+                                },
+                                {
+                                    "name": "Plugin - Get Consumer for ACL Credentials",
+                                    "protocolProfileBehavior": {
+                                        "disableBodyPruning": true
+                                    },
+                                    "request": {
+                                        "method": "GET",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "name": "Content-Type",
+                                                "type": "text",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n\t\"group\" : \"group-01\"\n}"
+                                        },
+                                        "url": {
+                                            "raw": "{{kong.host}}/acls/{{plugin.acl.id}}/consumer",
+                                            "host": [
+                                                "{{kong.host}}"
+                                            ],
+                                            "path": [
+                                                "acls",
+                                                "{{plugin.acl.id}}",
+                                                "consumer"
+                                            ]
+                                        },
+                                        "description": "Create basic authentication credential for specific consumer"
+                                    },
+                                    "response": []
+                                },
+                                {
+                                    "name": "Plugin - Delete Consumer from ACL Group",
+                                    "request": {
+                                        "method": "DELETE",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "name": "Content-Type",
+                                                "type": "text",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n\t\"group\" : \"group-01\"\n}"
+                                        },
+                                        "url": {
+                                            "raw": "{{kong.host}}/consumers/{{consumer.username}}/acls/{{plugin.acl.id}}",
+                                            "host": [
+                                                "{{kong.host}}"
+                                            ],
+                                            "path": [
+                                                "consumers",
+                                                "{{consumer.username}}",
+                                                "acls",
+                                                "{{plugin.acl.id}}"
+                                            ]
+                                        },
+                                        "description": "Create basic authentication credential for specific consumer"
+                                    },
+                                    "response": []
+                                }
+                            ],
+                            "protocolProfileBehavior": {},
+                            "_postman_isSubFolder": true
+                        },
+                        {
+                            "name": "Rate Limiting Basic",
+                            "item": [
+                                {
+                                    "name": "Plugin - Get Schema",
+                                    "request": {
+                                        "method": "GET",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "name": "Content-Type",
+                                                "type": "text",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "url": {
+                                            "raw": "{{kong.host}}/plugins/schema/rate-limiting",
+                                            "host": [
+                                                "{{kong.host}}"
+                                            ],
+                                            "path": [
+                                                "plugins",
+                                                "schema",
+                                                "rate-limiting"
+                                            ]
+                                        }
+                                    },
+                                    "response": []
+                                },
+                                {
+                                    "name": "Plugin - Enable Rate Limiting",
+                                    "request": {
+                                        "method": "POST",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "name": "Content-Type",
+                                                "type": "text",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n\t\"name\" : \"rate-limiting\",\n\t\"enabled\" : true,\n\t\"consumer_id\" : null,\n\t\"service_id\" : null,\n\t\"route_id\" : null,\n\t\"config\" : {\n\t\t\"limit_by\" : \"ip\",\n\t\t\"second\" : 100\n\t}\n}"
+                                        },
+                                        "url": {
+                                            "raw": "{{kong.host}}/plugins",
+                                            "host": [
+                                                "{{kong.host}}"
+                                            ],
+                                            "path": [
+                                                "plugins"
+                                            ]
+                                        }
+                                    },
+                                    "response": []
+                                }
+                            ],
+                            "protocolProfileBehavior": {},
+                            "_postman_isSubFolder": true
+                        },
+                        {
+                            "name": "Request Size Limiting",
+                            "item": [
+                                {
+                                    "name": "Plugin - Get Schema",
+                                    "request": {
+                                        "method": "GET",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "name": "Content-Type",
+                                                "type": "text",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "url": {
+                                            "raw": "{{kong.host}}/plugins/schema/request-size-limiting",
+                                            "host": [
+                                                "{{kong.host}}"
+                                            ],
+                                            "path": [
+                                                "plugins",
+                                                "schema",
+                                                "request-size-limiting"
+                                            ]
+                                        }
+                                    },
+                                    "response": []
+                                },
+                                {
+                                    "name": "Plugin - Enable Request Size Limiting",
+                                    "request": {
+                                        "method": "POST",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "name": "Content-Type",
+                                                "type": "text",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n\t\"name\" : \"request-size-limiting\",\n\t\"enabled\" : true,\n\t\"consumer_id\" : null,\n\t\"service_id\" : null,\n\t\"route_id\" : null,\n\t\"config\" : {\n\t\t\"allowed_payload_size\" : 1\n\t}\n}"
+                                        },
+                                        "url": {
+                                            "raw": "{{kong.host}}/plugins",
+                                            "host": [
+                                                "{{kong.host}}"
+                                            ],
+                                            "path": [
+                                                "plugins"
+                                            ]
+                                        }
+                                    },
+                                    "response": []
+                                }
+                            ],
+                            "protocolProfileBehavior": {},
+                            "_postman_isSubFolder": true
+                        },
+                        {
+                            "name": "Request Termination",
+                            "item": [
+                                {
+                                    "name": "Plugin - Get Schema",
+                                    "request": {
+                                        "method": "GET",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "name": "Content-Type",
+                                                "type": "text",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "url": {
+                                            "raw": "{{kong.host}}/plugins/schema/request-termination",
+                                            "host": [
+                                                "{{kong.host}}"
+                                            ],
+                                            "path": [
+                                                "plugins",
+                                                "schema",
+                                                "request-termination"
+                                            ]
+                                        }
+                                    },
+                                    "response": []
+                                },
+                                {
+                                    "name": "Plugin - Enable Request Size Limiting",
+                                    "request": {
+                                        "method": "POST",
+                                        "header": [
+                                            {
+                                                "key": "Content-Type",
+                                                "name": "Content-Type",
+                                                "type": "text",
+                                                "value": "application/json"
+                                            }
+                                        ],
+                                        "body": {
+                                            "mode": "raw",
+                                            "raw": "{\n\t\"name\" : \"request-termination\",\n\t\"enabled\" : true,\n\t\"consumer_id\" : null,\n\t\"service_id\" : null,\n\t\"route_id\" : null,\n\t\"config\" : {\n\t\t\"status_code\" : 503,\n\t\t\"message\" : \"This service is not available\",\n\t\t\"body\" : \"This service is not available\",\n\t\t\"content_type\" : \"application/json;charset=utf-8\"\n\t}\n}"
+                                        },
+                                        "url": {
+                                            "raw": "{{kong.host}}/plugins",
+                                            "host": [
+                                                "{{kong.host}}"
+                                            ],
+                                            "path": [
+                                                "plugins"
+                                            ]
+                                        }
+                                    },
+                                    "response": []
+                                }
+                            ],
+                            "protocolProfileBehavior": {},
+                            "_postman_isSubFolder": true
+                        }
+                    ],
+                    "protocolProfileBehavior": {},
+                    "_postman_isSubFolder": true
+                },
+                {
+                    "name": "Plugin - Add (Template)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n\t\"name\" : \"name\",\n\t\"consumer_id\" : {{consumer.id}},\n\t\"service_id\" : {{service.id}},\n\t\"route_id\" : {{route.id}},\n\t\"enabled\" : true,\n\t\"config\" : {\n\t\t\n\t}\n}"
+                        },
+                        "url": {
+                            "raw": "{{kong.host}}/plugins",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "plugins"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Plugin - List All Installed Plugins",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "type": "text",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{kong.host}}/plugins?size=50",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "plugins"
+                            ],
+                            "query": [
+                                {
+                                    "key": "size",
+                                    "value": "50"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Plugin - List Available Plugins",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "type": "text",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{kong.host}}/plugins/enabled",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "plugins",
+                                "enabled"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Plugin - Get Schema",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "type": "text",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{kong.host}}/plugins/schema/{{plugin.name}}",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "plugins",
+                                "schema",
+                                "{{plugin.name}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Plugin - Get by ID",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "type": "text",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{kong.host}}/plugins/{{plugin.id}}",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "plugins",
+                                "{{plugin.id}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Plugin - Update by ID (Template)",
+                    "request": {
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "type": "text",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n\t\"name\" : \"name\",\n\t\"consumer_id\" : {{consumer.id}},\n\t\"service_id\" : {{service.id}},\n\t\"route_id\" : {{route.id}},\n\t\"enabled\" : true,\n\t\"config\" : {\n\t\t\n\t}\n}"
+                        },
+                        "url": {
+                            "raw": "{{kong.host}}/plugins/{{plugin.id}}",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "plugins",
+                                "{{plugin.id}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Plugin - Delete by ID",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "type": "text",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": ""
+                        },
+                        "url": {
+                            "raw": "{{kong.host}}/plugins/{{plugin.id}}",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "plugins",
+                                "{{plugin.id}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ],
+            "description": "For list of plugin, please refer [here](https://docs.konghq.com/hub/)\r\n\r\nYou can add a plugin in four different ways:\r\n\r\n  - For every Service/Route and Consumer. Don’t set `consumer_id` and set `service_id` or `route_id`.\r\n  - For every Service/Route and a specific Consumer. Only set `consumer_id`.\r\n  - For every Consumer and a specific Service. Only set `service_id` (warning: some plugins only allow setting their `route_id`)\r\n  - For every Consumer and a specific Route. Only set `route_id` (warning: some plugins only allow setting their `service_id`)\r\n  - For a specific Service/Route and Consumer. Set both `service_id`/`route_id` and `consumer_id`.\r\n  - Note that not all plugins allow to specify `consumer_id`\r\n\r\nPostman templates will for every service / route, and consumer.\r\nShould you need fine-grain control on plugin, please define `consumer_id`, `service_id`, or `route_id`.",
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "id": "b9c4de2f-eb26-4918-a5bd-95e90fdd402d",
+                        "type": "text/javascript",
+                        "exec": [
+                            ""
+                        ]
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "id": "ad91a98b-6686-4a3b-a7ed-c8a863c6eb74",
+                        "type": "text/javascript",
+                        "exec": [
+                            ""
+                        ]
+                    }
+                }
+            ],
+            "protocolProfileBehavior": {}
+        },
+        {
+            "name": "05 Upstream",
+            "item": [
+                {
+                    "name": "Upstream - Add",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "type": "text",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n\t\"name\" : \"beta-upstream\",\n\t\"slots\" : 1000,\n\t\"healthchecks\": {\n        \"active\": {\n            \"concurrency\": 2,\n            \"healthy\": {\n                \"interval\": 10,\n                \"successes\": 3\n            },\n            \"http_path\": \"/\",\n            \"timeout\": 3,\n            \"unhealthy\": {\n                \"http_failures\": 3,\n                \"interval\": 10,\n                \"tcp_failures\": 3,\n                \"timeouts\": 3\n            }\n        },\n        \"passive\": {\n            \"healthy\": {\n                \"successes\": 3\n            },\n            \"unhealthy\": {\n                \"http_failures\": 3,\n                \"tcp_failures\": 3,\n                \"timeouts\": 3\n            }\n        }\n    }\n}"
+                        },
+                        "url": {
+                            "raw": "{{kong.host}}/upstreams",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "upstreams"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Upstream - List All",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "apikey",
+                                "value": "B3gZss5o6CMAjqw0zgnu6XajJ1lgzCmo",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{kong.host}}/upstreams",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "upstreams"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Upstream - Get by Name or ID",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "apikey",
+                                "type": "text",
+                                "value": "B3gZss5o6CMAjqw0zgnu6XajJ1lgzCmo"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{kong.host}}/upstreams/{{upstream.name}}",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "upstreams",
+                                "{{upstream.name}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Upstream - Update",
+                    "request": {
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "apikey",
+                                "type": "text",
+                                "value": "B3gZss5o6CMAjqw0zgnu6XajJ1lgzCmo"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n\t\"name\" : \"beta-upstreamx\",\n\t\"slots\" : 1000,\n\t\"healthchecks\": {\n        \"active\": {\n            \"concurrency\": 2,\n            \"healthy\": {\n                \"interval\": 10,\n                \"successes\": 3\n            },\n            \"http_path\": \"/\",\n            \"timeout\": 3,\n            \"unhealthy\": {\n                \"http_failures\": 3,\n                \"interval\": 10,\n                \"tcp_failures\": 3,\n                \"timeouts\": 3\n            }\n        },\n        \"passive\": {\n            \"healthy\": {\n                \"successes\": 3\n            },\n            \"unhealthy\": {\n                \"http_failures\": 3,\n                \"tcp_failures\": 3,\n                \"timeouts\": 3\n            }\n        }\n    }\n}"
+                        },
+                        "url": {
+                            "raw": "{{kong.host}}/upstreams/{{upstream.name}}",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "upstreams",
+                                "{{upstream.name}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Upstream - Create or Update",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "apikey",
+                                "type": "text",
+                                "value": "B3gZss5o6CMAjqw0zgnu6XajJ1lgzCmo"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "type": "text",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n\t\"name\" : \"beta-upstreamx\",\n\t\"slots\" : 1000,\n\t\"healthchecks\": {\n        \"active\": {\n            \"concurrency\": 2,\n            \"healthy\": {\n                \"interval\": 10,\n                \"successes\": 3\n            },\n            \"http_path\": \"/\",\n            \"timeout\": 3,\n            \"unhealthy\": {\n                \"http_failures\": 3,\n                \"interval\": 10,\n                \"tcp_failures\": 3,\n                \"timeouts\": 3\n            }\n        },\n        \"passive\": {\n            \"healthy\": {\n                \"successes\": 3\n            },\n            \"unhealthy\": {\n                \"http_failures\": 3,\n                \"tcp_failures\": 3,\n                \"timeouts\": 3\n            }\n        }\n    }\n}"
+                        },
+                        "url": {
+                            "raw": "{{kong.host}}/upstreams/{{upstream.name}}",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "upstreams",
+                                "{{upstream.name}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Upstream - Delete",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "apikey",
+                                "type": "text",
+                                "value": "B3gZss5o6CMAjqw0zgnu6XajJ1lgzCmo"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": ""
+                        },
+                        "url": {
+                            "raw": "{{kong.host}}/upstreams/{{upstream.name}}",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "upstreams",
+                                "{{upstream.name}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Upstream - Check Health",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{kong.host}}/upstreams/{{upstream.name}}/health",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "upstreams",
+                                "{{upstream.name}}",
+                                "health"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ],
+            "protocolProfileBehavior": {}
+        },
+        {
+            "name": "06 Target",
+            "item": [
+                {
+                    "name": "Target - Add",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n\t\"target\" : \"172.1.1.12:9002\",\n\t\"weight\" : 100\n}"
+                        },
+                        "url": {
+                            "raw": "{{kong.host}}/upstreams/{{upstream.name}}/targets",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "upstreams",
+                                "{{upstream.name}}",
+                                "targets"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Target - List All",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "apikey",
+                                "type": "text",
+                                "value": "B3gZss5o6CMAjqw0zgnu6XajJ1lgzCmo"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{kong.host}}/upstreams/{{upstream.name}}/targets",
+                            "host": [
+                                "{{kong.host}}"
+                            ],
+                            "path": [
+                                "upstreams",
+                                "{{upstream.name}}",
+                                "targets"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ],
+            "protocolProfileBehavior": {}
+        },
+        {
+            "name": "07 OAuth2 Demo",
+            "item": [
+                {
+                    "name": "OAuth2 - Get Token (Client Credentials)",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"client_id\" : \"apollo-clientid\",\r\n    \"client_secret\" : \"apollo-clientsecret\",\r\n    \"grant_type\" : \"client_credentials\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "https://localhost/gamma/oauth2/token",
+                            "protocol": "https",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "gamma",
+                                "oauth2",
+                                "token"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "OAuth2 - Get Token (Password Grant)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Basic YXBvbGxvOnBhc3N3b3JkMTIz",
+                                "type": "text",
+                                "disabled": true
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"client_id\": \"apollo-clientid\",\r\n    \"client_secret\": \"apollo-clientsecret\",\r\n    \"authenticated_userid\": \"apollo\",\r\n    \"grant_type\": \"password\",\r\n    \"provision_key\": \"provisionkey\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "https://localhost/gamma/oauth2/token",
+                            "protocol": "https",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "gamma",
+                                "oauth2",
+                                "token"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "OAuth2 - Get Token (Refresh Token)",
+                    "request": {
+                        "auth": {
+                            "type": "noauth"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "type": "text",
+                                "value": "Basic YXBvbGxvOnBhc3N3b3JkMTIz",
+                                "disabled": true
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"grant_type\": \"refresh_token\",\r\n    \"refresh_token\" : \"Mb0pOPzPt7mCiGLnPZhZ1o7Yd07OgDN0\",\r\n    \"client_id\" : \"apollo-clientid\",\r\n    \"client_secret\" : \"apollo-clientsecret\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "https://localhost/gamma/oauth2/token",
+                            "protocol": "https",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "gamma",
+                                "oauth2",
+                                "token"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ],
+            "protocolProfileBehavior": {}
+        },
+        {
+            "name": "99 Udemy Demo",
+            "item": [
+                {
+                    "name": "Alpha - Ping",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost/alpha/ping",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "alpha",
+                                "ping"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Alpha - Fast Response",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost/alpha/api/v1/fast",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "alpha",
+                                "api",
+                                "v1",
+                                "fast"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Alpha - Fast (Random Status)",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost/alpha/api/v1/fast-random",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "alpha",
+                                "api",
+                                "v1",
+                                "fast-random"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Alpha - Slow Response",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost/alpha/api/v1/slow",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "alpha",
+                                "api",
+                                "v1",
+                                "slow"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Alpha - Slow (Random Status)",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost/alpha/api/v1/slow-random",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "alpha",
+                                "api",
+                                "v1",
+                                "slow-random"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Alpha - Very Slow Response",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost/alpha/api/v1/very-slow/:param",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "alpha",
+                                "api",
+                                "v1",
+                                "very-slow",
+                                ":param"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "param",
+                                    "value": "Tony"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Alpha - Who Am I",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost/alpha/api/v1/who-am-i",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "alpha",
+                                "api",
+                                "v1",
+                                "who-am-i"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Alpha - Echo",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n\t\"test\" : \"kong\"\n}"
+                        },
+                        "url": {
+                            "raw": "http://localhost/alpha/api/v1/echo",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "alpha",
+                                "api",
+                                "v1",
+                                "echo"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Alpha - Random Employee",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost/alpha/api/v1/employee",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "alpha",
+                                "api",
+                                "v1",
+                                "employee"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Beta - Ping",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost/beta/ping",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "beta",
+                                "ping"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Beta - Fast Response",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost/beta/api/v1/fast",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "beta",
+                                "api",
+                                "v1",
+                                "fast"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Beta - Fast (Random Status)",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost/beta/api/v1/fast-random",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "beta",
+                                "api",
+                                "v1",
+                                "fast-random"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Beta - Slow Response",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost/beta/api/v1/slow",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "beta",
+                                "api",
+                                "v1",
+                                "slow"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Beta - Slow (Random Status)",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost/beta/api/v1/slow-random",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "beta",
+                                "api",
+                                "v1",
+                                "slow-random"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Beta - Who Am I",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost/alpha/api/v1/who-am-i",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "alpha",
+                                "api",
+                                "v1",
+                                "who-am-i"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Beta - Calculate MD5",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "f",
+                                    "type": "file",
+                                    "src": []
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "http://localhost/beta/api/v1/md5",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "beta",
+                                "api",
+                                "v1",
+                                "md5"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Gamma - Ping",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost/gamma/ping",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "gamma",
+                                "ping"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Gamma - Fast Response",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost/gamma/api/v1/fast",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "gamma",
+                                "api",
+                                "v1",
+                                "fast"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Gamma - Fast (Random Status)",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost/gamma/api/v1/fast-random",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "gamma",
+                                "api",
+                                "v1",
+                                "fast-random"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Gamma - Slow Response",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost/gamma/api/v1/slow",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "gamma",
+                                "api",
+                                "v1",
+                                "slow"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Gamma - Slow (Random Status)",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost/gamma/api/v1/slow-random",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "gamma",
+                                "api",
+                                "v1",
+                                "slow-random"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Gamma - Who Am I",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost/gamma/api/v1/who-am-i",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "gamma",
+                                "api",
+                                "v1",
+                                "who-am-i"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Omega - Ping",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost/omega/ping",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "omega",
+                                "ping"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Omega - Fast Response",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost/omega/api/v1/fast",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "omega",
+                                "api",
+                                "v1",
+                                "fast"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Omega - Fast (Random Status)",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost/omega/api/v1/fast-random",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "omega",
+                                "api",
+                                "v1",
+                                "fast-random"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Omega - Slow",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost/omega/api/v1/slow",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "omega",
+                                "api",
+                                "v1",
+                                "slow"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Omega - Slow (Random Status)",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost/omega/api/v1/slow-random",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "omega",
+                                "api",
+                                "v1",
+                                "slow-random"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Omega - Who Am I",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost/omega/api/v1/who-am-i",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "omega",
+                                "api",
+                                "v1",
+                                "who-am-i"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Omega - Chain Sync",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost/omega/api/v1/chain/sync",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "omega",
+                                "api",
+                                "v1",
+                                "chain",
+                                "sync"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Omega - Chain Async",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost/omega/api/v1/chain/async",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "omega",
+                                "api",
+                                "v1",
+                                "chain",
+                                "async"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Omega - Chain (Random Status)",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost/omega/api/v1/chain/random-status",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "omega",
+                                "api",
+                                "v1",
+                                "chain",
+                                "random-status"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ],
+            "protocolProfileBehavior": {}
+        },
+        {
+            "name": "Kong status",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{kong.host}}",
+                    "host": [
+                        "{{kong.host}}"
+                    ]
+                }
+            },
+            "response": []
+        }
+    ],
+    "event": [
+        {
+            "listen": "prerequest",
+            "script": {
+                "id": "2f9b1495-fbf0-41d3-ba74-04bb42b6394e",
+                "type": "text/javascript",
+                "exec": [
+                    ""
+                ]
+            }
+        },
+        {
+            "listen": "test",
+            "script": {
+                "id": "d07d0e2e-9c85-4335-b75e-e9b48fba91f3",
+                "type": "text/javascript",
+                "exec": [
+                    ""
+                ]
+            }
+        }
+    ],
+    "variable": [
+        {
+            "id": "10a710ce-fe71-4619-9a6b-7486257faab4",
+            "key": "kong.host",
+            "value": "http://localhost:8001"
+        },
+        {
+            "id": "ca57bd75-1a74-402a-bdf1-357719fb0bb4",
+            "key": "service.name",
+            "value": "example-service-name"
+        },
+        {
+            "id": "e6e1b59c-f839-4ba9-bc9d-972e8b822d67",
+            "key": "service.id",
+            "value": "example-service-id"
+        },
+        {
+            "id": "b744e966-fbb4-433f-86e9-754ec2d13259",
+            "key": "route.id",
+            "value": "example-route-id"
+        },
+        {
+            "id": "a20b76c1-f92a-418f-b769-c1a51b53d364",
+            "key": "consumer.username",
+            "value": "example-consumer-username"
+        },
+        {
+            "id": "adc48fb6-a02e-4df5-852c-ac7619917019",
+            "key": "consumer.id",
+            "value": "example-consumer-id"
+        },
+        {
+            "id": "62a1f590-aff2-4634-b428-e58489d4eb5f",
+            "key": "plugin.id",
+            "value": "example-plugin-id"
+        },
+        {
+            "id": "56503ed2-1223-4fc2-8d0a-ff7d68039dad",
+            "key": "plugin.name",
+            "value": "example-plugin-name"
+        },
+        {
+            "id": "cb63dd21-a468-4c08-babe-20bcb4517d42",
+            "key": "plugin.basic-auth.username",
+            "value": "example-basic-auth-username"
+        },
+        {
+            "id": "2f382ab2-9030-4b99-b8db-109198ef7e11",
+            "key": "plugin.hmac-auth.username",
+            "value": "example-hmac-auth-username"
+        },
+        {
+            "id": "3f2c9e4a-b10b-4ab9-980e-5052420486ca",
+            "key": "plugin.consumer.jwt.id",
+            "value": "example-consumer-jwt-id"
+        },
+        {
+            "id": "b5297e2f-3297-42f6-a1ea-abd20fd68d44",
+            "key": "plugin.consumer.api-key.id",
+            "value": "example-consumer-api-key-id"
+        },
+        {
+            "id": "ea43cc95-9bcf-49e8-8c36-721af71d2949",
+            "key": "plugin.acl.id",
+            "value": "example-plugin-acl-id"
+        },
+        {
+            "id": "0f033f39-e79c-47b1-8306-968408e63ee0",
+            "key": "upstream.name",
+            "value": "example-upstream-name"
+        }
+    ],
+    "protocolProfileBehavior": {}
+}

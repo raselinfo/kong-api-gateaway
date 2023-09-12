@@ -110,3 +110,65 @@ services:
       - kong-database
     ports:
       - "1337:1337"
+
+
+  # Server 1: Gama runs on port 4000
+  gama:
+    build:
+      context: ./gama
+      dockerfile: Dockerfile
+    image: gama
+    container_name: gama
+    ports: 
+      - "4000:4000"
+    networks:
+      - kong-net
+    volumes:
+      - ./gama:/app
+      - /app/node_modules
+
+#  Server 2: Alpha runs on port 4001
+  alpha:
+    build:
+      context: ./alpha
+      dockerfile: Dockerfile
+    image: alpha
+    container_name: alpha
+    ports: 
+      - "4001:4001"
+    networks:
+      - kong-net
+    volumes:
+      - ./alpha:/app
+      - /app/node_modules
+
+
+#  Server 3: Beta runs on port 4001
+  beta:
+    build:
+      context: ./beta
+      dockerfile: Dockerfile
+    image: beta
+    container_name: beta
+    ports: 
+      - "4002:4002"
+    networks:
+      - kong-net
+    volumes:
+      - ./beta:/app
+      - /app/node_modules
+
+#  Server 4: Omega runs on port 4001
+  omega:
+    build:
+      context: ./omega
+      dockerfile: Dockerfile
+    image: omega
+    container_name: omega
+    ports: 
+      - "4003:4003"
+    networks:
+      - kong-net
+    volumes:
+      - ./omega:/app
+      - /app/node_modules
