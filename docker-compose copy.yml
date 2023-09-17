@@ -5,11 +5,6 @@ volumes:
 
 networks:
  kong-net:
-  name: kong-net
-  driver: bridge
-  ipam:
-    config:
-      - subnet: 172.1.1.0/24
 
 services:
 
@@ -64,8 +59,7 @@ services:
     container_name: kong
     restart: on-failure
     networks:
-       kong-net:
-        ipv4_address: 172.1.1.40
+      - kong-net
     environment:
       KONG_DATABASE: postgres
       KONG_PG_HOST: kong-database
@@ -118,43 +112,7 @@ services:
       - "1337:1337"
 
 
-
-
-#  Server 1: Alpha runs on port 4001
-  alpha:
-    build:
-      context: ./alpha
-      dockerfile: Dockerfile
-    image: alpha
-    container_name: alpha
-    ports: 
-      - "4001:4001"
-    networks:
-      kong-net:
-        ipv4_address: 172.1.1.11
-    volumes:
-      - ./alpha:/app
-      - /app/node_modules
-
-
-#  Server 2: Beta runs on port 4001
-  beta:
-    build:
-      context: ./beta
-      dockerfile: Dockerfile
-    image: beta
-    container_name: beta
-    ports: 
-      - "4002:4002"
-    networks:
-      kong-net:
-        ipv4_address: 172.1.1.12
-    volumes:
-      - ./beta:/app
-      - /app/node_modules
-
-
-  # Server 3: Gama runs on port 4000
+  # Server 1: Gama runs on port 4000
   gama:
     build:
       context: ./gama
@@ -164,10 +122,40 @@ services:
     ports: 
       - "4000:4000"
     networks:
-      kong-net:
-        ipv4_address: 172.1.1.13
+      - kong-net
     volumes:
       - ./gama:/app
+      - /app/node_modules
+
+#  Server 2: Alpha runs on port 4001
+  alpha:
+    build:
+      context: ./alpha
+      dockerfile: Dockerfile
+    image: alpha
+    container_name: alpha
+    ports: 
+      - "4001:4001"
+    networks:
+      - kong-net
+    volumes:
+      - ./alpha:/app
+      - /app/node_modules
+
+
+#  Server 3: Beta runs on port 4001
+  beta:
+    build:
+      context: ./beta
+      dockerfile: Dockerfile
+    image: beta
+    container_name: beta
+    ports: 
+      - "4002:4002"
+    networks:
+      - kong-net
+    volumes:
+      - ./beta:/app
       - /app/node_modules
 
 #  Server 4: Omega runs on port 4001
@@ -180,8 +168,7 @@ services:
     ports: 
       - "4003:4003"
     networks:
-      kong-net:
-        ipv4_address: 172.1.1.14
+      - kong-net
     volumes:
       - ./omega:/app
       - /app/node_modules

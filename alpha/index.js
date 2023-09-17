@@ -3,6 +3,18 @@ const cors=require("cors")
 
 const app=express()
 
+app.get("/", (req, res) => {
+  res.setHeader("Cache-Control", "max-age=300");
+
+  res.json({
+    message: "this is Alpha",
+    name: "rasel",
+    age: 25,
+    sub: ["bangla", "english"],
+  });
+});
+
+
 app.get("/echo",(req,res)=>{
     res.setHeader('Cache-Control', 'max-age=300'); 
 
