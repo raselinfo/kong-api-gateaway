@@ -72,11 +72,15 @@ services:
       KONG_PG_DATABASE: kong
       KONG_PG_USER: kong
       KONG_PG_PASSWORD: kong
-      KONG_PROXY_LISTEN: 0.0.0.0:8000
-      KONG_PROXY_LISTEN_SSL: 0.0.0.0:8443
-      KONG_ADMIN_LISTEN: 0.0.0.0:8001
+      # KONG_PROXY_LISTEN: 0.0.0.0:8000
+      # KONG_PROXY_LISTEN_SSL: 0.0.0.0:8443
+      # KONG_ADMIN_LISTEN: 0.0.0.0:8001
+      KONG_PROXY_LISTEN: 0.0.0.0:8000, 0.0.0.0:8443 ssl
+      KONG_ADMIN_LISTEN: 0.0.0.0:8001, 0.0.0.0:8444 ssl
+      
     depends_on:
       - kong-database
+      - kong-migration
     healthcheck:
       test: ["CMD", "kong", "health"]
       interval: 10s
@@ -169,6 +173,8 @@ services:
     volumes:
       - ./gama:/app
       - /app/node_modules
+      - ./gama/localhost-key.pem:/app/localhost-key.pem
+      - ./gama/localhost.pem:/app/localhost.pem
 
 #  Server 4: Omega runs on port 4001
   omega:
@@ -185,3 +191,15 @@ services:
     volumes:
       - ./omega:/app
       - /app/node_modules
+
+# Zipkin
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin
+    environment:
+      - STORAGE_TYPE=mem
+    ports:
+      - "9411:9411"
+    networks:
+      kong-net:
+        ipv4_address: 172.1.1.20
