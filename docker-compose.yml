@@ -196,6 +196,7 @@ services:
   zipkin:
     image: openzipkin/zipkin
     container_name: zipkin
+    restart: unless-stopped
     environment:
       - STORAGE_TYPE=mem
     ports:
