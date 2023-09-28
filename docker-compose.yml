@@ -172,7 +172,7 @@ services:
         ipv4_address: 172.1.1.13
     volumes:
       - ./gama:/app
-      - /app/node_modules
+      - ./gama/node_modules:/app/node_modules
       - ./gama/localhost-key.pem:/app/localhost-key.pem
       - ./gama/localhost.pem:/app/localhost.pem
 
@@ -193,14 +193,62 @@ services:
       - /app/node_modules
 
 # Zipkin
-  zipkin:
-    image: openzipkin/zipkin
-    container_name: zipkin
-    restart: unless-stopped
-    environment:
-      - STORAGE_TYPE=mem
-    ports:
-      - "9411:9411"
+  # zipkin:
+  #   image: openzipkin/zipkin
+  #   container_name: zipkin
+  #   restart: unless-stopped
+  #   environment:
+  #     - STORAGE_TYPE=mem
+  #   ports:
+  #     - "9411:9411"
+  #   networks:
+  #     kong-net:
+  #       ipv4_address: 172.1.1.20
+
+
+# ELK stack
+# Elastic Search
+  elasticsearch:
+    image: elasticsearch:7.9.2
+    container_name: elasticsearch
+    restart: always
     networks:
-      kong-net:
-        ipv4_address: 172.1.1.20
+      - kong-net
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"
+      - "discovery.type=single-node"
+
+# logstash
+  logstash:
+    image: logstash:7.9.2
+    container_name: logstash
+    restart: always
+    depends_on: 
+      - elasticsearch
+    networks:
+      - kong-net
+    ports:
+      - "5555:5555/udp"
+      - "5044:5044"
+      - "9600:9600"
+    environment:
+      - "ELASTICSEARCH_URL=http://elasticsearch:9200"
+    volumes:
+      - ./data/logstash/pipeline:/usr/share/logstash/pipeline
+
+# Kibana
+  kibana:
+    image: kibana:7.9.2
+    container_name: kibana
+    restart: always
+    depends_on: 
+      - elasticsearch
+    networks:
+      - kong-net
+    ports:
+      - "5601:5601"
+    environment:
+      - "ELASTICSEARCH_URL=http://elasticsearch:9200"
