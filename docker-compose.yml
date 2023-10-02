@@ -76,7 +76,7 @@ services:
       # KONG_PROXY_LISTEN_SSL: 0.0.0.0:8443
       # KONG_ADMIN_LISTEN: 0.0.0.0:8001
       # KONG_PROXY_LISTEN: 0.0.0.0:8000, 0.0.0.0:8443 ssl
-      # KONG_ADMIN_LISTEN: 0.0.0.0:8001, 0.0.0.0:8444 ssl # to secure the admin API comment this line. it is not recommended to expose the admin API from localhost or outside the cluster
+      KONG_ADMIN_LISTEN: 0.0.0.0:8001, 0.0.0.0:8444 ssl # to secure the admin API comment this line. it is not recommended to expose the admin API from localhost or outside the cluster
       
     depends_on:
       - kong-database
