@@ -75,8 +75,8 @@ services:
       # KONG_PROXY_LISTEN: 0.0.0.0:8000
       # KONG_PROXY_LISTEN_SSL: 0.0.0.0:8443
       # KONG_ADMIN_LISTEN: 0.0.0.0:8001
-      KONG_PROXY_LISTEN: 0.0.0.0:8000, 0.0.0.0:8443 ssl
-      KONG_ADMIN_LISTEN: 0.0.0.0:8001, 0.0.0.0:8444 ssl
+      # KONG_PROXY_LISTEN: 0.0.0.0:8000, 0.0.0.0:8443 ssl
+      # KONG_ADMIN_LISTEN: 0.0.0.0:8001, 0.0.0.0:8444 ssl # to secure the admin API comment this line. it is not recommended to expose the admin API from localhost or outside the cluster
       
     depends_on:
       - kong-database
@@ -192,7 +192,7 @@ services:
       - ./omega:/app
       - /app/node_modules
 
-# Zipkin
+# Zipkin ------------------------------
   # zipkin:
   #   image: openzipkin/zipkin
   #   container_name: zipkin
@@ -206,49 +206,50 @@ services:
   #       ipv4_address: 172.1.1.20
 
 
-# ELK stack
+# ELK stack -----------------------------------------------------
 # Elastic Search
-  elasticsearch:
-    image: elasticsearch:7.9.2
-    container_name: elasticsearch
-    restart: always
-    networks:
-      - kong-net
-    ports:
-      - "9200:9200"
-      - "9300:9300"
-    environment:
-      - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"
-      - "discovery.type=single-node"
+#   elasticsearch:
+#     image: elasticsearch:7.9.2
+#     container_name: elasticsearch
+#     restart: always
+#     networks:
+#       - kong-net
+#     ports:
+#       - "9200:9200"
+#       - "9300:9300"
+#     environment:
+#       - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"
+#       - "discovery.type=single-node"
 
-# logstash
-  logstash:
-    image: logstash:7.9.2
-    container_name: logstash
-    restart: always
-    depends_on: 
-      - elasticsearch
-    networks:
-      - kong-net
-    ports:
-      - "5555:5555/udp"
-      - "5044:5044"
-      - "9600:9600"
-    environment:
-      - "ELASTICSEARCH_URL=http://elasticsearch:9200"
-    volumes:
-      - ./data/logstash/pipeline:/usr/share/logstash/pipeline
+# # logstash
+#   logstash:
+#     image: logstash:7.9.2
+#     container_name: logstash
+#     restart: always
+#     depends_on: 
+#       - elasticsearch
+#     networks:
+#       - kong-net
+#     ports:
+#       - "5555:5555/udp"
+#       - "5044:5044"
+#       - "9600:9600"
+#     environment:
+#       - "ELASTICSEARCH_URL=http://elasticsearch:9200"
+#     volumes:
+#       - ./data/logstash/pipeline:/usr/share/logstash/pipeline
 
-# Kibana
-  kibana:
-    image: kibana:7.9.2
-    container_name: kibana
-    restart: always
-    depends_on: 
-      - elasticsearch
-    networks:
-      - kong-net
-    ports:
-      - "5601:5601"
-    environment:
-      - "ELASTICSEARCH_URL=http://elasticsearch:9200"
+# # Kibana
+#   kibana:
+#     image: kibana:7.9.2
+#     container_name: kibana
+#     restart: always
+#     depends_on: 
+#       - elasticsearch
+#     networks:
+#       - kong-net
+#     ports:
+#       - "5601:5601"
+#     environment:
+#       - "ELASTICSEARCH_URL=http://elasticsearch:9200"
+
