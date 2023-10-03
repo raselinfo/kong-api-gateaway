@@ -1,15 +1,17 @@
-version: "3.7"
+version: "3.9"
 
 volumes:
   kong_data: {}
+  keycloak-datastore:
 
 networks:
- kong-net:
-  name: kong-net
-  driver: bridge
-  ipam:
-    config:
-      - subnet: 172.1.1.0/24
+  keycloak-net:
+  kong-net:
+    name: kong-net
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.1.1.0/24
 
 services:
 
@@ -253,3 +255,35 @@ services:
 #     environment:
 #       - "ELASTICSEARCH_URL=http://elasticsearch:9200"
 
+
+# Kyecloak-------------------------
+  keycloak-db:
+    image: postgres:9.6
+    volumes: 
+      - keycloak-datastore:/var/lib/postresql/data
+    networks:
+      - keycloak-net
+    ports:
+      - "25432:5432"
+    environment:
+      POSTGRES_DB:       keycloak
+      POSTGRES_USER:     keycloak
+      POSTGRES_PASSWORD: password
+
+  keycloak:
+    image: jboss/keycloak:4.5.0.Final
+    depends_on:
+      - keycloak-db
+    networks:
+      - keycloak-net
+    ports:
+      - "8180:8080"
+    environment:
+      DB_VENDOR:   POSTGRES
+      DB_ADDR:     keycloak-db
+      DB_PORT:     5432
+      DB_DATABASE: keycloak
+      DB_USER:     keycloak
+      DB_PASSWORD: password
+      KEYCLOAK_USER:     admin
+      KEYCLOAK_PASSWORD: admin

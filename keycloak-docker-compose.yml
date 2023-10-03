@@ -1,0 +1,42 @@
+version: '3.9'
+
+## NOTE: use the script 'start-docker-compose' to run this 
+
+networks: 
+  keycloak-net:
+
+volumes:
+  keycloak-datastore:
+
+services:
+
+  keycloak-db:
+    image: postgres:9.6
+    volumes: 
+      - keycloak-datastore:/var/lib/postresql/data
+    networks:
+      - keycloak-net
+    ports:
+      - "25432:5432"
+    environment:
+      POSTGRES_DB:       keycloak
+      POSTGRES_USER:     keycloak
+      POSTGRES_PASSWORD: password
+
+  keycloak:
+    image: jboss/keycloak:4.5.0.Final
+    depends_on:
+      - keycloak-db
+    networks:
+      - keycloak-net
+    ports:
+      - "8180:8080"
+    environment:
+      DB_VENDOR:   POSTGRES
+      DB_ADDR:     keycloak-db
+      DB_PORT:     5432
+      DB_DATABASE: keycloak
+      DB_USER:     keycloak
+      DB_PASSWORD: password
+      KEYCLOAK_USER:     admin
+      KEYCLOAK_PASSWORD: admin
