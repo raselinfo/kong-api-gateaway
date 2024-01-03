@@ -16,6 +16,6 @@ RUN mkdir -p /usr/local/kong/js-plugins
 # COPY --from=builder  /customauthplugin/.  /usr/local/kong/js-plugins/customauthplugin
 
 COPY ./plugins /usr/local/kong/js-plugins
+RUN cd /usr/local/kong/js-plugins && npm install
 
 USER kong
-# CMD ["kong", "docker-start"]
