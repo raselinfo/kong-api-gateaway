@@ -42,7 +42,10 @@ services:
   #######################################
   kong-migration:
     # image: ${KONG_DOCKER_TAG:-kong:latest}
-    image: kong:latest
+    # image: kong:latest
+    build:
+      context: ./config
+      dockerfile: Dockerfile
     command: kong migrations bootstrap
     networks:
       - kong-net
@@ -60,7 +63,10 @@ services:
   # Kong: The API Gateway
   #######################################
   kong:
-    image: kong:latest
+    # image: kong:latest
+    build:
+      context: ./config
+      dockerfile: Dockerfile
     container_name: kong
     restart: on-failure
     networks:
@@ -77,6 +83,13 @@ services:
       # KONG_ADMIN_LISTEN: 0.0.0.0:8001
       # KONG_PROXY_LISTEN: 0.0.0.0:8000, 0.0.0.0:8443 ssl
       KONG_ADMIN_LISTEN: 0.0.0.0:8001, 0.0.0.0:8444 ssl # to secure the admin API comment this line. it is not recommended to expose the admin API from localhost or outside the cluster
+      KONG_PLUGINSERVER_NAMES: js
+      KONG_PLUGINSERVER_JS_SOCKET: /usr/local/kong/js_pluginserver.sock
+      KONG_PLUGINSERVER_JS_START_CMD: /usr/local/bin/kong-js-pluginserver -v --plugins-directory /usr/local/kong/js-plugins 
+      KONG_PLUGINSERVER_JS_QUERY_CMD: /usr/local/bin/kong-js-pluginserver --plugins-directory /usr/local/kong/js-plugins --dump-all-plugins 
+      KONG_PLUGINS: bundled,customauthplugin
+      # KONG_CUSTOM_PLUGINS: kong-custom-auth
+
       
     depends_on:
       - kong-database
@@ -252,4 +265,3 @@ services:
 #       - "5601:5601"
 #     environment:
 #       - "ELASTICSEARCH_URL=http://elasticsearch:9200"
-
