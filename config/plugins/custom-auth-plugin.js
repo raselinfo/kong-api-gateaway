@@ -5,7 +5,7 @@ class Customauthplugin {
   }
   async access(kong) {
     // ...
-    console.log(kong)
+    console.log("KOng..................",kong)
   }
 }
 module.exports = {

@@ -87,8 +87,7 @@ services:
       KONG_PLUGINSERVER_JS_SOCKET: /usr/local/kong/js_pluginserver.sock
       KONG_PLUGINSERVER_JS_START_CMD: /usr/local/bin/kong-js-pluginserver -v --plugins-directory /usr/local/kong/js-plugins 
       KONG_PLUGINSERVER_JS_QUERY_CMD: /usr/local/bin/kong-js-pluginserver --plugins-directory /usr/local/kong/js-plugins --dump-all-plugins 
-      KONG_PLUGINS: bundled,customauthplugin
-      # KONG_CUSTOM_PLUGINS: kong-custom-auth
+      KONG_PLUGINS: bundled,custom-auth-plugin
 
       
     depends_on:
