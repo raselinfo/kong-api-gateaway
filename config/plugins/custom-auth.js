@@ -42,15 +42,7 @@ class CustomAuth {
           })
         );
       }
-
-      // await kong.response.exit(
-      //   200,
-      //   JSON.stringify({
-      //     data: data.data,
-      //     success: true,
-      //   })
-      // );
-
+      
       return;
     } catch (error) {
       const status = error.status || 401;
