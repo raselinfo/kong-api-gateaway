@@ -7,7 +7,4 @@ RUN mkdir -p /usr/local/kong/js-plugins
 COPY ./plugins /usr/local/kong/js-plugins
 RUN cd /usr/local/kong/js-plugins && npm install
 
-
-
-
 USER kong

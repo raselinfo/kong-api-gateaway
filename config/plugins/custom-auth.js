@@ -18,11 +18,6 @@ class CustomAuth {
           401,
           JSON.stringify({
             message: "Unauthorized",
-            // headers,
-            // token_place,
-            // authHeader,
-            // token,
-            // validation_endpoint: this.config.validation_endpoint,
           })
         );
       }
@@ -42,11 +37,6 @@ class CustomAuth {
           401,
           JSON.stringify({
             message: "Unauthorized",
-            // headers,
-            // token_place,
-            // authHeader,
-            // token,
-            // validation_endpoint: this.config.validation_endpoint,
           })
         );
       }

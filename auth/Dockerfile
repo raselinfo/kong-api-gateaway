@@ -14,8 +14,7 @@ RUN npm install
 COPY . .
 
 RUN npx prisma generate
-# RUN npx prisma migrate dev --name init
-# RUN npx prisma db push
+
 
 # Expose a port (e.g., 3000) that the application will listen on
 EXPOSE 4005

@@ -3,6 +3,7 @@ version: "3.7"
 volumes:
   kong_data: {}
   auth_data: {}
+  inventory_data: {}
 
 networks:
  kong-net:
@@ -42,8 +43,6 @@ services:
   # Kong database migration
   #######################################
   kong-migration:
-    # image: ${KONG_DOCKER_TAG:-kong:latest}
-    # image: kong:latest
     build:
       context: ./config
       dockerfile: Dockerfile
@@ -64,7 +63,6 @@ services:
   # Kong: The API Gateway
   #######################################
   kong:
-    # image: kong:latest
     build:
       context: ./config
       dockerfile: Dockerfile
@@ -79,16 +77,12 @@ services:
       KONG_PG_DATABASE: kong
       KONG_PG_USER: kong
       KONG_PG_PASSWORD: kong
-      # KONG_PROXY_LISTEN: 0.0.0.0:8000
-      # KONG_PROXY_LISTEN_SSL: 0.0.0.0:8443
-      # KONG_ADMIN_LISTEN: 0.0.0.0:8001
-      # KONG_PROXY_LISTEN: 0.0.0.0:8000, 0.0.0.0:8443 ssl
       KONG_ADMIN_LISTEN: 0.0.0.0:8001, 0.0.0.0:8444 ssl # to secure the admin API comment this line. it is not recommended to expose the admin API from localhost or outside the cluster
       KONG_PLUGINSERVER_NAMES: js
       KONG_PLUGINSERVER_JS_SOCKET: /usr/local/kong/js_pluginserver.sock
       KONG_PLUGINSERVER_JS_START_CMD: /usr/local/bin/kong-js-pluginserver -v --plugins-directory /usr/local/kong/js-plugins 
       KONG_PLUGINSERVER_JS_QUERY_CMD: /usr/local/bin/kong-js-pluginserver --plugins-directory /usr/local/kong/js-plugins --dump-all-plugins 
-      KONG_PLUGINS: bundled,custom-auth-plugin,json-to-yaml,custom-auth
+      KONG_PLUGINS: bundled,custom-auth
 
       
     depends_on:
@@ -136,77 +130,7 @@ services:
 
 
 
-
-#  Server 1: Alpha runs on port 4001
-  alpha:
-    build:
-      context: ./alpha
-      dockerfile: Dockerfile
-    image: alpha
-    container_name: alpha
-    ports: 
-      - "4001:4001"
-    networks:
-      kong-net:
-        ipv4_address: 172.1.1.11
-    volumes:
-      - ./alpha:/app
-      - /app/node_modules
-
-
-# #  Server 2: Beta runs on port 4001
-#   beta:
-#     build:
-#       context: ./beta
-#       dockerfile: Dockerfile
-#     image: beta
-#     container_name: beta
-#     ports: 
-#       - "4002:4002"
-#     networks:
-#       kong-net:
-#         ipv4_address: 172.1.1.12
-#     volumes:
-#       - ./beta:/app
-#       - /app/node_modules
-
-
-#   # Server 3: Gama runs on port 4000
-#   gama:
-#     build:
-#       context: ./gama
-#       dockerfile: Dockerfile
-#     image: gama
-#     container_name: gama
-#     ports: 
-#       - "4000:4000"
-#     networks:
-#       kong-net:
-#         ipv4_address: 172.1.1.13
-#     volumes:
-#       - ./gama:/app
-#       - ./gama/node_modules:/app/node_modules
-#       - ./gama/localhost-key.pem:/app/localhost-key.pem
-#       - ./gama/localhost.pem:/app/localhost.pem
-
-# #  Server 4: Omega runs on port 4001
-#   omega:
-#     build:
-#       context: ./omega
-#       dockerfile: Dockerfile
-#     image: omega
-#     container_name: omega
-#     ports: 
-#       - "4003:4003"
-#     networks:
-#       kong-net:
-#         ipv4_address: 172.1.1.14
-#     volumes:
-#       - ./omega:/app
-#       - /app/node_modules
-
-
-# Auth Service and postgress database and postgress admin ------------------------------
+# Auth Service and postgress database ------------------------------
   auth-db:
     image: postgres:9.6
     container_name: auth-db
@@ -244,6 +168,7 @@ services:
     build:
       context: ./auth
       dockerfile: Dockerfile
+    image: auth
     container_name: auth
     restart: on-failure
     ports: 
@@ -263,64 +188,58 @@ services:
 
 
 
+# Inventory Service and postgress database ------------------------------
+  inventory-db:
+    image: postgres:9.6
+    container_name: inventory-db
+    restart: on-failure
+    networks:
+      - kong-net
+    volumes:
+      - inventory_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: inventory
+      POSTGRES_PASSWORD: inventory
+      POSTGRES_DB: inventory
+    ports:
+      - "5434:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "auth"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
 
-# Zipkin ------------------------------
-  # zipkin:
-  #   image: openzipkin/zipkin
-  #   container_name: zipkin
-  #   restart: unless-stopped
-  #   environment:
-  #     - STORAGE_TYPE=mem
-  #   ports:
-  #     - "9411:9411"
-  #   networks:
-  #     kong-net:
-  #       ipv4_address: 172.1.1.20
+  inventory-prepare:
+    build:
+      context: ./inventory
+      dockerfile: Dockerfile   
+    command: npx prisma migrate dev --name init
+    environment:
+      DATABASE_URL: postgresql://inventory:inventory@host.docker.internal:5434/inventory?schema=public
+    networks:
+      - kong-net
+    restart: on-failure
+    depends_on:
+      - inventory-db
 
-
-# ELK stack -----------------------------------------------------
-# Elastic Search
-#   elasticsearch:
-#     image: elasticsearch:7.9.2
-#     container_name: elasticsearch
-#     restart: always
-#     networks:
-#       - kong-net
-#     ports:
-#       - "9200:9200"
-#       - "9300:9300"
-#     environment:
-#       - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"
-#       - "discovery.type=single-node"
-
-# # logstash
-#   logstash:
-#     image: logstash:7.9.2
-#     container_name: logstash
-#     restart: always
-#     depends_on: 
-#       - elasticsearch
-#     networks:
-#       - kong-net
-#     ports:
-#       - "5555:5555/udp"
-#       - "5044:5044"
-#       - "9600:9600"
-#     environment:
-#       - "ELASTICSEARCH_URL=http://elasticsearch:9200"
-#     volumes:
-#       - ./data/logstash/pipeline:/usr/share/logstash/pipeline
-
-# # Kibana
-#   kibana:
-#     image: kibana:7.9.2
-#     container_name: kibana
-#     restart: always
-#     depends_on: 
-#       - elasticsearch
-#     networks:
-#       - kong-net
-#     ports:
-#       - "5601:5601"
-#     environment:
-#       - "ELASTICSEARCH_URL=http://elasticsearch:9200"
+  inventory:
+    build:
+      context: ./inventory
+      dockerfile: Dockerfile
+    image: inventory
+    container_name: inventory
+    restart: on-failure
+    ports: 
+      - "4001:4001"
+    environment:
+      DATABASE_URL: postgresql://inventory:inventory@host.docker.internal:5434/inventory?schema=public
+    depends_on:
+      - inventory-db
+      - inventory-prepare
+    volumes:
+      - ./inventory:/app
+      - /app/node_modules
+    networks:
+      kong-net:
+        ipv4_address: 172.1.1.16
+  

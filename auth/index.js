@@ -13,6 +13,11 @@ const PORT=process.env.PORT || 4005
 app.use("/api/v1", authRouter);
 
 
+app.get("/",(req,res)=>{
+  res.status(200).json({message:"Your server is healthy"})
+})
+
+
 // Global Error Handler
 app.use((err, req, res, next) => {
   res.status(err.status || 500).json({
