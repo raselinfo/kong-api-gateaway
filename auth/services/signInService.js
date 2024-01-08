@@ -16,7 +16,7 @@ const signInService = async ({ email, password }) => {
     throw new Error("Email not found!");
   }
 
-  const isValidPassword = Password.verify(password, existingUser.password);
+  const isValidPassword =await Password.verify(password, existingUser.password);
   if (!isValidPassword) {
     throw new Error("Password is incorrect!");
   }
