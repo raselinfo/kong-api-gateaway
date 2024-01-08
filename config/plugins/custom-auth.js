@@ -28,7 +28,7 @@ class CustomAuth {
       }
 
       const data = await axios.post(
-        this.config.validation_endpoint,
+        this.config.validation_endpoint, // http://auth:4005/api/v1/checkpoint
         {},
         {
           headers: {
