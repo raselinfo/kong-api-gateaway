@@ -2,6 +2,7 @@ version: "3.7"
 
 volumes:
   kong_data: {}
+  auth_data: {}
 
 networks:
  kong-net:
@@ -153,56 +154,115 @@ services:
       - /app/node_modules
 
 
-#  Server 2: Beta runs on port 4001
-  beta:
-    build:
-      context: ./beta
-      dockerfile: Dockerfile
-    image: beta
-    container_name: beta
-    ports: 
-      - "4002:4002"
+# #  Server 2: Beta runs on port 4001
+#   beta:
+#     build:
+#       context: ./beta
+#       dockerfile: Dockerfile
+#     image: beta
+#     container_name: beta
+#     ports: 
+#       - "4002:4002"
+#     networks:
+#       kong-net:
+#         ipv4_address: 172.1.1.12
+#     volumes:
+#       - ./beta:/app
+#       - /app/node_modules
+
+
+#   # Server 3: Gama runs on port 4000
+#   gama:
+#     build:
+#       context: ./gama
+#       dockerfile: Dockerfile
+#     image: gama
+#     container_name: gama
+#     ports: 
+#       - "4000:4000"
+#     networks:
+#       kong-net:
+#         ipv4_address: 172.1.1.13
+#     volumes:
+#       - ./gama:/app
+#       - ./gama/node_modules:/app/node_modules
+#       - ./gama/localhost-key.pem:/app/localhost-key.pem
+#       - ./gama/localhost.pem:/app/localhost.pem
+
+# #  Server 4: Omega runs on port 4001
+#   omega:
+#     build:
+#       context: ./omega
+#       dockerfile: Dockerfile
+#     image: omega
+#     container_name: omega
+#     ports: 
+#       - "4003:4003"
+#     networks:
+#       kong-net:
+#         ipv4_address: 172.1.1.14
+#     volumes:
+#       - ./omega:/app
+#       - /app/node_modules
+
+
+# Auth Service and postgress database and postgress admin ------------------------------
+  auth-db:
+    image: postgres:9.6
+    container_name: auth-db
+    restart: on-failure
     networks:
-      kong-net:
-        ipv4_address: 172.1.1.12
+      - kong-net
     volumes:
-      - ./beta:/app
+      - auth_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: auth
+      POSTGRES_PASSWORD: auth
+      POSTGRES_DB: auth
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "auth"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+
+  auth-prepare:
+    build:
+      context: ./auth
+      dockerfile: Dockerfile   
+    command: npx prisma migrate dev --name init
+    environment:
+      DATABASE_URL: postgresql://auth:auth@host.docker.internal:5433/auth?schema=public
+    networks:
+      - kong-net
+    restart: on-failure
+    depends_on:
+      - auth-db
+
+  auth:
+    build:
+      context: ./auth
+      dockerfile: Dockerfile
+    container_name: auth
+    restart: on-failure
+    ports: 
+      - "4005:4005"
+    environment:
+      DATABASE_URL: postgresql://auth:auth@host.docker.internal:5433/auth?schema=public
+    depends_on:
+      - auth-db
+      - auth-prepare
+    volumes:
+      - ./auth:/app
       - /app/node_modules
-
-
-  # Server 3: Gama runs on port 4000
-  gama:
-    build:
-      context: ./gama
-      dockerfile: Dockerfile
-    image: gama
-    container_name: gama
-    ports: 
-      - "4000:4000"
     networks:
       kong-net:
-        ipv4_address: 172.1.1.13
-    volumes:
-      - ./gama:/app
-      - ./gama/node_modules:/app/node_modules
-      - ./gama/localhost-key.pem:/app/localhost-key.pem
-      - ./gama/localhost.pem:/app/localhost.pem
+        ipv4_address: 172.1.1.15
+  
 
-#  Server 4: Omega runs on port 4001
-  omega:
-    build:
-      context: ./omega
-      dockerfile: Dockerfile
-    image: omega
-    container_name: omega
-    ports: 
-      - "4003:4003"
-    networks:
-      kong-net:
-        ipv4_address: 172.1.1.14
-    volumes:
-      - ./omega:/app
-      - /app/node_modules
+
+
 
 # Zipkin ------------------------------
   # zipkin:
