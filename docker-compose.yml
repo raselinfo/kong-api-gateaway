@@ -2,9 +2,8 @@ version: "3.9"
 
 volumes:
   kong_data: {}
-  # auth_data: {}
   inventory_data: {}
-  keycloak-datastore:
+  keycloak-datastore: {}
 
 networks:
   keycloak-net:
@@ -30,7 +29,6 @@ services:
       - kong_data:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: kong
-      # POSTGRES_PASSWORD: kong
       POSTGRES_PASSWORD: kong
       POSTGRES_DB: kong
     ports:
@@ -84,9 +82,7 @@ services:
       KONG_PLUGINSERVER_JS_SOCKET: /usr/local/kong/js_pluginserver.sock
       KONG_PLUGINSERVER_JS_START_CMD: /usr/local/bin/kong-js-pluginserver -v --plugins-directory /usr/local/kong/js-plugins 
       KONG_PLUGINSERVER_JS_QUERY_CMD: /usr/local/bin/kong-js-pluginserver --plugins-directory /usr/local/kong/js-plugins --dump-all-plugins 
-      KONG_PLUGINS: bundled,custom-auth
-
-      
+      KONG_PLUGINS: bundled,custom-auth      
     depends_on:
       - kong-database
       - kong-migration
@@ -148,83 +144,28 @@ services:
       POSTGRES_PASSWORD: password
 
   keycloak:
-    image: jboss/keycloak:4.5.0.Final
+    image: quay.io/keycloak/keycloak:latest
+    container_name: keycloak
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+      - KC_DB=postgres
+      - KC_DB_URL_HOST=keycloak-db
+      - KC_DB_URL_DATABASE=keycloak
+      - KC_DB_USERNAME=keycloak
+      - KC_DB_PASSWORD=password
+      - KC_HEALTH_ENABLED=true
+      - KC_CACHE=ispn
+      - KC_LOG_LEVEL=INFO,org.infinispan:DEBUG,org.jgroups:DEBUG
+      - KEYCLOAK_ENABLE_HTTPS=false
+      - PROXY_ADDRESS_FORWARDING=true
+    ports:
+      - "8081:8080"
+    command: start-dev
     depends_on:
       - keycloak-db
     networks:
       - keycloak-net
-    ports:
-      - "8180:8080"
-    environment:
-      DB_VENDOR:   POSTGRES
-      DB_ADDR:     keycloak-db
-      DB_PORT:     5436
-      DB_DATABASE: keycloak
-      DB_USER:     keycloak
-      DB_PASSWORD: password
-      KEYCLOAK_USER:     admin
-      KEYCLOAK_PASSWORD: admin
-
-
-
-
-
-# Auth Service and postgress database ------------------------------
-  # auth-db:
-  #   image: postgres:9.6
-  #   container_name: auth-db
-  #   restart: on-failure
-  #   networks:
-  #     - kong-net
-  #   volumes:
-  #     - auth_data:/var/lib/postgresql/data
-  #   environment:
-  #     POSTGRES_USER: auth
-  #     POSTGRES_PASSWORD: auth
-  #     POSTGRES_DB: auth
-  #   ports:
-  #     - "5433:5432"
-  #   healthcheck:
-  #     test: ["CMD", "pg_isready", "-U", "auth"]
-  #     interval: 30s
-  #     timeout: 30s
-  #     retries: 3
-
-  # auth-prepare:
-  #   build:
-  #     context: ./auth
-  #     dockerfile: Dockerfile   
-  #   command: npx prisma migrate dev --name init
-  #   environment:
-  #     DATABASE_URL: postgresql://auth:auth@host.docker.internal:5433/auth?schema=public
-  #   networks:
-  #     - kong-net
-  #   restart: on-failure
-  #   depends_on:
-  #     - auth-db
-
-  # auth:
-  #   build:
-  #     context: ./auth
-  #     dockerfile: Dockerfile
-  #   image: auth
-  #   container_name: auth
-  #   restart: on-failure
-  #   ports: 
-  #     - "4005:4005"
-  #   environment:
-  #     DATABASE_URL: postgresql://auth:auth@host.docker.internal:5433/auth?schema=public
-  #   depends_on:
-  #     - auth-db
-  #     - auth-prepare
-  #   volumes:
-  #     - ./auth:/app
-  #     - /app/node_modules
-  #   networks:
-  #     kong-net:
-  #       ipv4_address: 172.1.1.15
-  
-
 
 
 # Inventory Service and postgress database ------------------------------
