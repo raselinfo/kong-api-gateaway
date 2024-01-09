@@ -1,17 +1,19 @@
-version: "3.7"
+version: "3.9"
 
 volumes:
   kong_data: {}
-  auth_data: {}
+  # auth_data: {}
   inventory_data: {}
+  keycloak-datastore:
 
 networks:
- kong-net:
-  name: kong-net
-  driver: bridge
-  ipam:
-    config:
-      - subnet: 172.1.1.0/24
+  keycloak-net:
+  kong-net:
+    name: kong-net
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.1.1.0/24
 
 services:
 
@@ -130,60 +132,97 @@ services:
 
 
 
-# Auth Service and postgress database ------------------------------
-  auth-db:
+
+# Keycloak Auth Service and postgress database ------------------------------
+  keycloak-db:
     image: postgres:9.6
-    container_name: auth-db
-    restart: on-failure
+    volumes: 
+      - keycloak-datastore:/var/lib/postresql/data
     networks:
-      - kong-net
-    volumes:
-      - auth_data:/var/lib/postgresql/data
-    environment:
-      POSTGRES_USER: auth
-      POSTGRES_PASSWORD: auth
-      POSTGRES_DB: auth
+      - keycloak-net
     ports:
-      - "5433:5432"
-    healthcheck:
-      test: ["CMD", "pg_isready", "-U", "auth"]
-      interval: 30s
-      timeout: 30s
-      retries: 3
-
-  auth-prepare:
-    build:
-      context: ./auth
-      dockerfile: Dockerfile   
-    command: npx prisma migrate dev --name init
+      - "5436:5432"
     environment:
-      DATABASE_URL: postgresql://auth:auth@host.docker.internal:5433/auth?schema=public
-    networks:
-      - kong-net
-    restart: on-failure
-    depends_on:
-      - auth-db
+      POSTGRES_DB:       keycloak
+      POSTGRES_USER:     keycloak
+      POSTGRES_PASSWORD: password
 
-  auth:
-    build:
-      context: ./auth
-      dockerfile: Dockerfile
-    image: auth
-    container_name: auth
-    restart: on-failure
-    ports: 
-      - "4005:4005"
-    environment:
-      DATABASE_URL: postgresql://auth:auth@host.docker.internal:5433/auth?schema=public
+  keycloak:
+    image: jboss/keycloak:4.5.0.Final
     depends_on:
-      - auth-db
-      - auth-prepare
-    volumes:
-      - ./auth:/app
-      - /app/node_modules
+      - keycloak-db
     networks:
-      kong-net:
-        ipv4_address: 172.1.1.15
+      - keycloak-net
+    ports:
+      - "8180:8080"
+    environment:
+      DB_VENDOR:   POSTGRES
+      DB_ADDR:     keycloak-db
+      DB_PORT:     5436
+      DB_DATABASE: keycloak
+      DB_USER:     keycloak
+      DB_PASSWORD: password
+      KEYCLOAK_USER:     admin
+      KEYCLOAK_PASSWORD: admin
+
+
+
+
+
+# Auth Service and postgress database ------------------------------
+  # auth-db:
+  #   image: postgres:9.6
+  #   container_name: auth-db
+  #   restart: on-failure
+  #   networks:
+  #     - kong-net
+  #   volumes:
+  #     - auth_data:/var/lib/postgresql/data
+  #   environment:
+  #     POSTGRES_USER: auth
+  #     POSTGRES_PASSWORD: auth
+  #     POSTGRES_DB: auth
+  #   ports:
+  #     - "5433:5432"
+  #   healthcheck:
+  #     test: ["CMD", "pg_isready", "-U", "auth"]
+  #     interval: 30s
+  #     timeout: 30s
+  #     retries: 3
+
+  # auth-prepare:
+  #   build:
+  #     context: ./auth
+  #     dockerfile: Dockerfile   
+  #   command: npx prisma migrate dev --name init
+  #   environment:
+  #     DATABASE_URL: postgresql://auth:auth@host.docker.internal:5433/auth?schema=public
+  #   networks:
+  #     - kong-net
+  #   restart: on-failure
+  #   depends_on:
+  #     - auth-db
+
+  # auth:
+  #   build:
+  #     context: ./auth
+  #     dockerfile: Dockerfile
+  #   image: auth
+  #   container_name: auth
+  #   restart: on-failure
+  #   ports: 
+  #     - "4005:4005"
+  #   environment:
+  #     DATABASE_URL: postgresql://auth:auth@host.docker.internal:5433/auth?schema=public
+  #   depends_on:
+  #     - auth-db
+  #     - auth-prepare
+  #   volumes:
+  #     - ./auth:/app
+  #     - /app/node_modules
+  #   networks:
+  #     kong-net:
+  #       ipv4_address: 172.1.1.15
   
 
 
@@ -204,7 +243,7 @@ services:
     ports:
       - "5434:5432"
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "auth"]
+      test: ["CMD", "pg_isready", "-U", "inventory"]
       interval: 30s
       timeout: 30s
       retries: 3
