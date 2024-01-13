@@ -28,3 +28,11 @@ openssl req -x509 -out localhostcrt.pem -keyout localhostkey.pem \
 
 # [Oauth Grant Types](https://oauth.net/2/grant-types/)
 ![image](./docs-image/image.png)
+
+
+## Keycloak Token EndPoint : http://host.docker.internal:8081/realms/demo/protocol/openid-connect/token
+![Alt text](./docs-image/token-endpoint.png)
+
+## Keycloak Introspection EndPoint : http://host.docker.internal:8081/realms/demo/protocol/openid-connect/token/introspect
+
+![Alt text](./docs-image/introspection.png)

@@ -81,7 +81,7 @@ services:
       KONG_PLUGINSERVER_JS_SOCKET: /usr/local/kong/js_pluginserver.sock
       KONG_PLUGINSERVER_JS_START_CMD: /usr/local/bin/kong-js-pluginserver -v --plugins-directory /usr/local/kong/js-plugins
       KONG_PLUGINSERVER_JS_QUERY_CMD: /usr/local/bin/kong-js-pluginserver --plugins-directory /usr/local/kong/js-plugins --dump-all-plugins
-      KONG_PLUGINS: bundled,custom-auth
+      KONG_PLUGINS: bundled,custom-auth,oidc,keycloak-introspection
     depends_on:
       - kong-database
       - kong-migration
@@ -158,8 +158,8 @@ services:
       - KC_HEALTH_ENABLED=true
       - KC_CACHE=ispn
       - KC_LOG_LEVEL=INFO,org.infinispan:DEBUG,org.jgroups:DEBUG
-      # - KEYCLOAK_ENABLE_HTTPS=false
-      # - PROXY_ADDRESS_FORWARDING=true
+      - KEYCLOAK_ENABLE_HTTPS=false
+      - PROXY_ADDRESS_FORWARDING=true
       - KC_HTTPS_CERTIFICATE_FILE=/opt/keycloak/demo/certs/localhostcrt.pem
       - KC_HTTPS_CERTIFICATE_KEY_FILE=/opt/keycloak/demo/certs/localhostkey.pem
     ports:
