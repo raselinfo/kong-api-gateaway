@@ -9,5 +9,4 @@ COPY ./plugins /usr/local/kong/js-plugins
 RUN cd /usr/local/kong/js-plugins && npm install
 
 
-
 USER kong
