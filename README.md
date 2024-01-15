@@ -1,5 +1,7 @@
 # kong-api-getaway
 
+![Image](./docs-image/diagram.png)
+
 - [Keycloak Docs Distribution 21.0.1 API](https://www.keycloak.org/docs-api/21.0.1/javadocs/index.html)
 
 - [Vie All Free Service of Kong 🦍](https://docs.konghq.com/hub/?tier=free)
@@ -36,3 +38,12 @@ openssl req -x509 -out localhostcrt.pem -keyout localhostkey.pem \
 ## Keycloak Introspection EndPoint : http://host.docker.internal:8081/realms/demo/protocol/openid-connect/token/introspect
 
 ![Alt text](./docs-image/introspection.png)
+
+
+
+-------------------
+http://localhost:8081/realms/demo/protocol/openid-connect/auth?client_id=demo-client&redirect_uri=http://your-app-page&response_mode=fragment&response_type=code&scope=openid&nonce=9165368a-b370-4afb-8379-ed8ec7b11b73&code_challenge=Vv1dGUWyk9gUcGuzWIH32-hVZru-uVlCMqEaluKfTVA&code_challenge_method=S256
+
+
+
+
