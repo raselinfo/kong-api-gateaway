@@ -1,5 +1,10 @@
 # kong-api-getaway
 
+## Steps for gatting started with the project
+[View Docs](./docs/README.md)
+
+
+
 ![Image](./docs/image/diagram.png)
 
 - [Keycloak Docs Distribution 21.0.1 API](https://www.keycloak.org/docs-api/21.0.1/javadocs/index.html)
