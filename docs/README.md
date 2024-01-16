@@ -221,7 +221,7 @@ Before configuring the OIDC plugin for the `inventory-service` we have to config
 
 7. To create a user click on the `Users` menu from the left sidebar. Then click on the `Add user` button. Give a `Username`, and `Email` for the user. For example `inventory-user` and `user@example.com`. Then click on the `Create` button.
 
-8. Set the `Password` for the user. Click on the `Credentials` form you `inventory-user`. Click on the `Set Password` Button. Give you the password. Switch off the `Temporary` button. Then click on the `Save` button.
+8. Set the `Password` for the user. Click on the `Credentials` form you `inventory-user`. Click on the `Set Password` Button. Set the password. Switch off the `Temporary` button. Then click on the `Save` button.
 
   
 
@@ -352,4 +352,4 @@ Now we will mimic the `authorization_code` flow from the postman. To mimic the `
 
   
 
-5. Click on the `Get New Access Token` button. Then you will see a keycloak login page. Log in with your user credentials. Then you will see a popup window with the `access_token`. Copy the `access_token` value.
+5. Click on the `Get New Access Token` button. Then you will see a keycloak login page. Log in with your user credentials. Then you will see a popup window with the `access_token`. Copy the `access_token` value and use it.
