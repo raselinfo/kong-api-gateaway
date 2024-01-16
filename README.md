@@ -1,6 +1,6 @@
 # kong-api-getaway
 
-![Image](./docs-image/diagram.png)
+![Image](./docs/image/diagram.png)
 
 - [Keycloak Docs Distribution 21.0.1 API](https://www.keycloak.org/docs-api/21.0.1/javadocs/index.html)
 
@@ -29,15 +29,15 @@ openssl req -x509 -out localhostcrt.pem -keyout localhostkey.pem \
 
 
 # [Oauth Grant Types](https://oauth.net/2/grant-types/)
-![image](./docs-image/image.png)
+![image](./docs/image/image.png)
 
 
 ## Keycloak Token EndPoint : http://host.docker.internal:8081/realms/demo/protocol/openid-connect/token
-![Alt text](./docs-image/token-endpoint.png)
+![Alt text](./docs/image/token-endpoint.png)
 
 ## Keycloak Introspection EndPoint : http://host.docker.internal:8081/realms/demo/protocol/openid-connect/token/introspect
 
-![Alt text](./docs-image/introspection.png)
+![Alt text](./docs/image/introspection.png)
 
 
 
