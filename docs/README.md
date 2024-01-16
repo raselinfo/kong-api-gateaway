@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-- [Docker should instelled in you pc](https://docs.docker.com/install/)f
+- [Docker should instelled in you pc](https://docs.docker.com/install/)
 - [Docker-compose should instelled in you pc](https://docs.docker.com/compose/install/)
 - [Git should instelled in you pc](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 
